@@ -1,0 +1,4 @@
+interface:
+  display_name: "JSON Regress 项目协作"
+  short_description: "维护 MoonBit 数值回归库、真实模型集成及强化学习与世界模型验证证据"
+  default_prompt: "使用 $json-regress-engineering，读取当前状态并完成本项目下一项有明确验收标准的任务。"

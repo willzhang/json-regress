@@ -1,0 +1,56 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "local/json_regress"
+
+import {
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn assert_matches(Json, Json, rules? : Rules) -> Unit raise
+
+pub fn compare(Json, Json, rules? : Rules) -> Array[Difference] raise InvalidRule
+
+pub fn format_differences(Array[Difference]) -> String
+
+// Errors
+pub suberror InvalidRule {
+  InvalidRule(String)
+} derive(@debug.Debug)
+
+pub suberror Mismatch {
+  Mismatch(String)
+} derive(@debug.Debug)
+
+// Types and methods
+pub(all) struct Difference {
+  path : String
+  reason : Reason
+  expected : Json?
+  actual : Json?
+} derive(Eq, @debug.Debug)
+
+pub(all) enum Reason {
+  ValueMismatch
+  TypeMismatch
+  Missing
+  Unexpected
+  OutsideTolerance
+  UnsupportedNumber
+  DepthLimit
+} derive(Eq, @debug.Debug)
+
+pub(all) struct Rules {
+  ignore_paths : Array[String]
+  tolerances : Array[Tolerance]
+} derive(@debug.Debug)
+pub fn Rules::new(ignore_paths? : Array[String], tolerances? : Array[Tolerance]) -> Self
+
+pub(all) struct Tolerance {
+  path : String
+  absolute : Double
+  relative : Double
+} derive(Eq, @debug.Debug)
+
+// Type aliases
+
+// Traits

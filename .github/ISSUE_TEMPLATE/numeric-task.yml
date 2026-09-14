@@ -1,0 +1,32 @@
+name: 数值与核心任务
+description: JSON 路径、数值数组、容差或差异报告的改进
+title: "[Numeric] "
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: 问题与当前基线
+      description: 描述一个可复现问题及已有命令、输入和结果。
+    validations:
+      required: true
+  - type: textarea
+    id: contract
+    attributes:
+      label: 输入输出与数值契约
+      description: 路径、shape、dtype、轴顺序、公式、零/非有限值和错误语义。
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 独立参考值与验收
+      description: 各给出应通过和应失败样例，说明参考值如何产生、需要运行哪些检查。
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: 范围与成本边界
+      description: 兼容性、非目标、探索检查点及失败后的备选。
+    validations:
+      required: true

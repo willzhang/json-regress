@@ -1,0 +1,31 @@
+name: 缺陷报告
+description: 比较结果、数据适配、报告或构建的可复现问题
+title: "[Bug] "
+body:
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: 最小复现
+      description: 输入、规则、调用方法和命令；仅使用可公开数据。
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期望与实际结果
+      description: 区分匹配失败、非法输入、异常退出和环境问题。
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: 环境与版本
+      description: moon/moonc、目标后端、操作系统，外部集成还需对应版本或提交。
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: 影响与临时规避
+    validations:
+      required: false

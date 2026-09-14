@@ -1,0 +1,34 @@
+name: 世界模型或强化学习展示
+description: 固定模型输出或短轨迹的回归校验场景
+title: "[Scenario] "
+body:
+  - type: dropdown
+    id: domain
+    attributes:
+      label: 展示场景
+      options:
+        - 世界模型一步预测
+        - 强化学习短轨迹
+    validations:
+      required: true
+  - type: textarea
+    id: mistake
+    attributes:
+      label: 要捕获的开发错误
+      description: 明确维度、数值、动作时间对齐、奖励或终止字段的错误。
+    validations:
+      required: true
+  - type: textarea
+    id: source
+    attributes:
+      label: 数据、参考值和确定性条件
+      description: 合成或真实来源、许可、版本、固定输入/状态/动作、随机噪声与时间含义。
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: 可运行验收及结论边界
+      description: 通过和失败样例、命令、报告；说明为何不能据此评价训练性能。
+    validations:
+      required: true

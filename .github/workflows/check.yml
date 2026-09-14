@@ -1,0 +1,26 @@
+name: Check JSON regression library
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Install official MoonBit toolchain
+        run: |
+          curl -fsSL https://cli.moonbitlang.com/install/unix.sh -o /tmp/install-moonbit.sh
+          bash /tmp/install-moonbit.sh
+          echo "$HOME/.moon/bin" >> "$GITHUB_PATH"
+      - name: Check, build, test and run examples
+        run: |
+          moon version --all
+          moon fmt --check
+          moon check --deny-warn
+          moon build --deny-warn
+          moon test --deny-warn
+          moon test --target native --deny-warn
+          moon run cmd/main

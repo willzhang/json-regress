@@ -1,0 +1,32 @@
+name: 真实项目集成
+description: 将一个真实 MoonBit ML 项目的输出接入回归库
+title: "[Integration] "
+body:
+  - type: textarea
+    id: upstream
+    attributes:
+      label: 候选来源与运行条件
+      description: URL、许可证、版本或提交、工具链、CPU 最小入口；未知项明确标注。
+    validations:
+      required: true
+  - type: textarea
+    id: chain
+    attributes:
+      label: 实际调用链与适配契约
+      description: 谁生成输入，谁运行模型，谁适配，谁比较；注明 shape/dtype/容差。
+    validations:
+      required: true
+  - type: textarea
+    id: reference
+    attributes:
+      label: 独立参考及失败注入
+      description: 参考值生成方式，合理波动、数值错误和结构错误如何验证。
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: 验收与探索边界
+      description: 区分固定文件回放与真实第三方调用；记录命令、预算检查点和备选。
+    validations:
+      required: true
