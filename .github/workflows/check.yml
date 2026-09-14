@@ -8,6 +8,7 @@ permissions:
 jobs:
   check:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v5
       - name: Install official MoonBit toolchain
@@ -18,9 +19,4 @@ jobs:
       - name: Check, build, test and run examples
         run: |
           moon version --all
-          moon fmt --check
-          moon check --deny-warn
-          moon build --deny-warn
-          moon test --deny-warn
-          moon test --target native --deny-warn
-          moon run cmd/main
+          bash scripts/check-local.sh --integration
