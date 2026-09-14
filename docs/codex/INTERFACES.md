@@ -31,11 +31,12 @@ Summary 含 total、mismatched、所有元素的 max_absolute_error 和有上限
 
 不支持广播、隐式 reshape、自动转置或 dtype 转换。公式不是 PyTorch 的绝对加相对阈值。[PyTorch 官方参考](https://docs.pytorch.org/docs/stable/testing)
 
-## 场景数据契约草案：M3
+## 轨迹接口（M3 已实现）
 
-- 世界模型一步预测：记录模型版本、固定 observation/action、初始 state、推断模式、随机噪声或确定性分支；比较预测向量和可选 reward/continue 输出。潜在维度、轴顺序和采样方式必须说明。
-- RL：声明一种自己的规范化轨迹格式，而不声称存在统一的框架格式。每步建议含 episode_id、step、observation、action、reward、next_observation、terminated、truncated。写明 step 的含义和 observation 在动作前后的时序，跨 episode 不连续拼接。
-- terminated 与 truncated 不合并成一个无说明的 done；不得未经环境定义就假设两者互斥。对原始框架字段的映射须显式记录。
-- 可选 JSONL 中非有限数值处理必须明确；JSON 标准数值不能直接表示 NaN/Infinity，不采用静默转 null 的导出器。
+`trajectory.validate(document)` 检查规范化步骤数组，`compare(expected, actual, absolute?, relative?, max_samples?)` 返回 metadata 差异和带原行路径的 tensor 差异；`assert_matches` 在有差异时抛 Mismatch。格式错误为 InvalidTrajectory，张量/数值输入错误沿用 numeric.InvalidInput；规则错误沿用 numeric.InvalidRule。
 
-参考数据元信息至少有：schema 版本、来源 URL/许可证、上游版本或提交、生成命令、输入/权重摘要、随机性条件和校验和。现有接口尚不读写这些文件；随 M2/M3 实现更新。
+每步必须有 episode_id、step、observation、action、reward、next_observation、terminated、truncated，未知字段拒绝。三个观测/动作字段使用 numeric 的 Tensor JSON；reward 为支持的有限标量。元信息严格比较，只有 reward 应用明确容差。相邻同 episode 步号连续且 next_observation 与后一步 observation 严格匹配，不能靠放大回归容差跳过这一输入契约。
+
+允许空数组、最后 episode 的前缀，以及同时 terminated/truncated；不接受非零步号开头片段、重复 episode id 或无结束标志的跨 episode 拼接。详细时序和边界见 [RL 场景](../RL_TRAJECTORY.md)。
+
+世界模型固定 state/observation/action、权重、输入拼接及轴顺序，直接调用 MoonXi 的两层 Linear 与 ReLU。数值推断以独立 Python 算式为参考，详见 [世界模型场景](../WORLD_MODEL.md)。所有参考的生成命令与 JSON 校验和见 [manifest](../../fixtures/manifest.json)，上游提交与许可证见 [upstream](../../integrations/moonxi/upstream.json)。

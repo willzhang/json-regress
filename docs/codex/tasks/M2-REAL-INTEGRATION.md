@@ -1,6 +1,6 @@
 # M2：一个真实 MoonBit ML 项目接入
 
-状态：READY_FOR_DISCOVERY；未下载、锁定或运行候选。依赖：M1 的数值数组接口，兼容性探查可以先进行。
+状态：INTEGRATION_VERIFIED。2026-09-14 已锁定 MoonXi-net `b485c25faaefa768e035a534fb1e64fdbfac68a6`（MIT），原 CPU 115 项测试及本项目 5 项集成测试通过；真实 Linear/ReLU 输出与独立 Python 参考对照。入口 `integrations/moonxi/`，详见 VALIDATION。
 
 ## 问题与候选
 

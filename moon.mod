@@ -19,8 +19,8 @@ repository = ""
 
 license = "Apache-2.0"
 
-keywords = [ ]
+keywords = [ "json", "regression", "testing", "tensor" ]
 
 preferred_target = "wasm"
 
-description = "Path-aware JSON regression assertions with numeric tolerances and structured differences (local prototype)."
+description = "JSON, tensor and trajectory regression assertions with explicit tolerances and structured differences."

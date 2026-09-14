@@ -12,13 +12,13 @@
 - [x] 项目 skill frontmatter 与脚本校验通过。
 - [x] YAML 模板解析、相对链接与正文一致性检查通过。
 
-2026-09-14 验证结果：skill-creator 自带 quick_validate 返回 `Skill is valid!`；展示元数据通过长度与调用名检查；6 个 YAML 文件成功解析，Issue 字段 ID 无重复；19 个 Markdown 文件的 57 个本地链接全部可解析。此轮不修改比较器代码，也不重跑已有 28 项代码测试；已有结果在 CURRENT_STATUS 中标为历史原型验证。
+协作包接入轮（本轮实施之前）的 2026-09-14 记录：skill-creator 自带 quick_validate 返回 `Skill is valid!`；展示元数据通过长度与调用名检查；6 个 YAML 文件成功解析，Issue 字段 ID 无重复；19 个 Markdown 文件的 57 个本地链接全部可解析。当时未修改比较器代码；后续 M1–M3 的实施与验证结果见 CURRENT_STATUS 和 VALIDATION。
 
 ## 后续真实验收
 
-- [ ] M1 数值数组实现与正负例测试。
-- [ ] M2 锁定并实际运行一个第三方 MoonBit ML 项目。
-- [ ] M3 世界模型与 RL 分别提供可重跑展示。
+- [x] M1 数值数组实现与正负例测试。
+- [x] M2 锁定并实际运行一个第三方 MoonBit ML 项目。
+- [x] M3 世界模型与 RL 分别提供可重跑展示。
 - [ ] 在独立项目目录的新任务中验证 skill 的 UI 发现；父工作区目前通过 AGENTS 链接读入。
 - [ ] 发布前将项目作为仓库根，确认 `.github/` 和 skill 一并保留。
 - [ ] 按真实开发过程建立提交，确认 namespace、仓库地址和 Mooncakes 发布材料。
@@ -26,6 +26,6 @@
 
 ## 使用入口
 
-推荐提示：`使用 $json-regress-engineering，读取当前状态，按 M1 契约实现数值数组适配，保留现有容差语义并完成相关验证。`
+推荐提示：`使用 $json-regress-engineering，读取当前状态，按 Git 交接继续正式提交与发布准备，保留已有验证结果并完成必要检查。`
 
 如果当前任务的 skill 选择器尚未显示它，可以直接指定 `.agents/skills/json-regress-engineering/SKILL.md`；从父工作区使用 `json-regress/.agents/skills/json-regress-engineering/SKILL.md`。不需要把本项目规则安装到全局。

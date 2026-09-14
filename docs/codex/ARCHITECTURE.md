@@ -1,47 +1,21 @@
 # 架构与边界
 
-## 当前实际结构
-
 ```text
-MoonBit 调用方 / cmd/main
-        │ Json + Rules
-        ▼
-json_regress.mbt
-  规则校验 → 递归比较 → Difference[] → 文本报告 / Mismatch
-        │
-        └─ 标准 Json、Map、Array；无第三方运行时依赖
+MoonBit / 标准 Json 调用方
+  ├─ JSON 核心：路径规则 → Difference[] → 报告 / 断言
+  ├─ numeric：Tensor 校验 → shape/dtype → 数据容差 → 全量统计 + 有界样本
+  └─ trajectory：规范化步骤校验 → JSON 元信息 + numeric 向量比较
+
+独立 Python 算式 → fixtures JSON / 嵌入源码 / SHA-256
+                           ↓
+MoonXi CPU 独立模块 → 真实 Linear / ReLU → numeric
+自建确定性小环境 → 两段实际 RL 轨迹 → trajectory
 ```
 
-- `json_regress.mbt`：当前全部核心实现。
-- `json_regress_test.mbt`、`README.mbt.md`：行为与文档测试。
-- `cmd/main/`：三个已运行的原型示例。
-- `pkg.generated.mbti`：生成的公开接口；由 `moon info` 更新。
-- `scripts/moon-local.sh`：本机工具链入口。
+核心 `json_regress.mbt`、`numeric/`、`trajectory/` 只依赖 MoonBit 标准类型和本模块；第三方框架不进入核心依赖图。`fixtures/` 保存独立参考数据与可在无文件 IO 的后端运行的嵌入源码，来源是 `scripts/generate-references.py`。`examples/rl/` 是确定性小环境，`cmd/rl/` 与 `cmd/main/` 为可运行展示。
 
-## 已接受的扩展方向，尚未实现
+`integrations/moonxi/` 是自己的 MoonBit 模块，`moon.work` 引用根模块与 `.external/moonxi-net/moonxi-net` CPU 模块，覆盖上游包含 CUDA 的工作区范围。上游版本/许可证见 `upstream.json`，通过 `scripts/fetch-moonxi.py` 下载并校验确切提交与干净工作树。适配器从实际框架 shape 和 Float 数据读取，不用期望 shape 覆盖实际 shape。
 
-```text
-真实 MoonBit ML 库 ──小型 CPU 前向输出──┐
-独立参考实现 ──固定输入/权重/结果───────┤
-世界模型一步预测 / RL 短轨迹样例──────┤
-                                      ▼
-                     明确格式的适配器与数据夹具
-                                      ▼
-                数值数组规则 + JSON 回归核心
-                                      ▼
-                   错误位置、误差摘要、失败退出
-```
+`artifacts/` 存诊断和可重建结果，`.external/` 存第三方源码，均被 Git 忽略。Python 是独立参考生成工具，不是运行核心库的依赖。当前包归档检查没有包含缓存、上游源码或 Git 私有状态；GitHub/技能等点目录用于源码仓库协作，不等同于 Mooncakes 包内容。
 
-建议新增 `numeric/` 包保存数值数组逻辑；核心只在需要时提取共用数学助手。`examples/integration/` 保存真实项目的薄调用方与版本记录，`examples/world_model/` 和 `examples/rl/` 保存两个展示。名称是目录设计建议，执行任务时可调整并更新本文；这些路径目前未创建。
-
-`fixtures/` 只保存小型可公开参考数据及其元信息，`artifacts/` 保存可重建结果。Python 若用于产生独立参考数据，属于可选工具，不成为核心库的运行依赖。第三方源码与缓存放 `.external/`，不作为本库原创源码复制提交。
-
-## 为什么要有真实接入
-
-至少一条证据链应包括：固定版本的第三方 MoonBit 库实际运行 → 取得输出 → 调用本库 → 对合理波动通过、对植入错误失败。只回放预先导出的 JSON 属于固定数据验证，不能证明当前框架可运行或适配正确。
-
-优先探查 MoonXi-net 的 CPU 部分，若需要修改编译器或大量环境修复，转查 MbTorch 的小型 CPU/Wasm 模型。候选来源：[MoonXi-net](https://github.com/moonxi-net/moonxi-net)、[MbTorch](https://github.com/c-tomioka/mbtorch)。选择前核对当前版本、许可证、接口和实测结果。
-
-## 成本与扩展约束
-
-不新增训练框架、GPU 算子、自动求导、分布式服务、可视化站点或实验管理平台。张量 JSON 只服务小型回归夹具，不用于承诺高吞吐模型权重交换。目录拆分由依赖隔离需要驱动，不为层数或代码量扩张项目。
+模型固定输入和权重，比较链路真正执行第三方 CPU 层；RL 则执行自建小环境并明确来源，不声称接入 Gymnasium。没有模型训练、GPU、付费服务、自动求导实现、分布式服务或大规模性能承诺。

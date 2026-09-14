@@ -31,7 +31,7 @@ bash scripts/moon-local.sh run cmd/main
 
 这是代码/API 改动后的检查集合，按实际影响选择执行。小型文档或协作模板改动只检查链接、结构与内容一致性。`moon info`/`fmt` 会修改生成接口和格式；不得把自动更新测试期望当成发现正确答案的方法。
 
-已验证工具链：moon 0.1.20260904，moonc v0.10.12+1634b282e (2026-09-07)，Apple Silicon macOS。本机路径在脚本中定义，支持 `JSON_REGRESS_MOON_HOME`；临时目录若消失，应报告环境问题并恢复官方工具链，不伪造测试通过。CI 安装 latest，未来版本漂移可能需要单独处理。现有 `.github/` 位于项目子目录；GitHub 以未来独立发布的项目仓库根目录识别它，当前父工作区并未在 GitHub 运行该工作流。
+已验证工具链：moon 0.1.20260904，moonc v0.10.12+1634b282e (2026-09-07)，Apple Silicon macOS。本机路径在脚本中定义，支持 `JSON_REGRESS_MOON_HOME`；临时目录若消失，应报告环境问题并恢复官方工具链，不伪造测试通过。CI 安装 latest，未来版本漂移可能需要单独处理。项目已初始化为独立 Git 仓库，`.github/` 位于其根目录；尚无正式提交或远程 CI 结果。
 
 ## M1 数值规则检查
 
@@ -58,3 +58,14 @@ RL 只验证记录轨迹和确定性组件契约。环境版本、随机源、�
 证据类别 / 未运行范围 / 下一步：
 
 小型文本摘要可提交；运行缓存与长日志放 `artifacts/`，明确命名后再选择需要保留的摘要。不要覆盖参考夹具来消除失败。
+
+## 2026-09-14 本轮结果
+
+- 全库 54/54，Wasm 和 Native 均通过；包括原核心 28、numeric 17、trajectory 5、RL 场景 4。numeric 的兼容性测试内部另覆盖 196 组核心/数组标量规则一致性，不额外算作 196 个测试。
+- 格式、check/build、通用示例、RL 展示通过。`bash scripts/check-local.sh --integration` 是复现入口，CI 使用同一脚本。
+- MoonXi 原始 CPU 模块 115/115：`MOON_WORK=off bash scripts/moon-local.sh -C .external/moonxi-net/moonxi-net test --target native`。独立集成 5/5，`-C integrations/moonxi test -p local/json_regress_moonxi --target native`。
+- 世界模型正例最大绝对误差 `1.1920928910669204e-8`，固定绝对阈值 `1e-6`；修改第二个 latent 后在坐标 `[0,1]` 失败。线性基准为二进制精确小算例，零容差通过；单独测试微扰在 `2e-6` 内通过及 `0.1` 错误失败。
+- 三个参考夹具通过 `python3 scripts/generate-references.py --check`，校验 JSON、嵌入源码与 SHA-256 清单。生成器没有调用被测实现。
+- MoonXi 记录在 upstream.json；实际 checkout 无源码修改。其弃用警告保存在 `artifacts/moonxi-validation.log`，集成不使用 deny-warn；核心仍严格 deny-warn。
+- `moon package --list` 本地成功打包，未包含 `.external`、`artifacts` 或 `.git`。这不是 Mooncakes 发布；repository 仍为空，工具对此提示警告。
+- Git 快照不是提交；`python3 scripts/check-commits.py` 当前正确返回失败并报告 0/10。远程 CI、发布、官方验收、付款均未完成。

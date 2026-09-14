@@ -1,19 +1,19 @@
-# json-regress（本地原型）
+# json-regress
 
-面向 MoonBit 测试的 JSON 回归断言库：对明确路径忽略易变字段，对指定数值设置容差，同时保留其他业务字段的严格比较和可定位的失败报告。
+面向 MoonBit 的 JSON、数值数组与轨迹回归断言库。对明确路径忽略易变字段，对浮点输出设置容差，严格校验 shape/dtype，并报告具体路径、错误坐标和超差统计。已接入真实 MoonXi-net CPU 层，提供世界模型一步预测和 RL 短轨迹展示。
 
-当前模块名 `local/json_regress` 是本地占位名称，尚未上传 GitHub 或发布到 Mooncakes。使用现有 `Json` 类型，无第三方运行时依赖。
+当前模块名 `local/json_regress` 是本地占位名称，尚未上传 GitHub 或发布到 Mooncakes。核心使用现有 `Json` 类型，无第三方运行时依赖；可选 ML 集成在独立模块中。
 
 ## 快速运行
 
 在本项目目录执行（先安装官方工具链）：
 
 ```sh
-bash scripts/moon-local.sh test
-bash scripts/moon-local.sh run cmd/main
+bash scripts/check-local.sh              # 核心、数值数组、RL：无额外下载
+bash scripts/check-local.sh --integration # 加上固定版本 MoonXi CPU 集成
 ```
 
-示例程序包含接口响应、实验指标、生成配置三个场景，每个场景都检查一个应通过的结果和一个应失败的结果。示例断言不符合预期时，进程会以非零状态退出。
+可单独执行 `bash scripts/moon-local.sh run cmd/main`、`run cmd/rl` 或 `-C integrations/moonxi run cmd/showcases --target native`。首次 ML 集成会下载锁定的公开源码与其 Mooncakes 依赖。各展示都包括通过例与植入错误；与预期不符时以非零状态退出。
 
 安装 [MoonBit 官方工具链](https://www.moonbitlang.com/download) 后，可直接运行 `moon test`。包装脚本默认使用 PATH 中的 `moon`；也可设置 `JSON_REGRESS_MOON_HOME`，或在未跟踪的 `.moon-home` 文件中填写工具链目录。
 
@@ -56,6 +56,17 @@ test "readme regression example" {
 "/sample_count": ValueMismatch; expected=100; actual=99
 ```
 
+## 数值数组、真实集成与轨迹
+
+| 能力 | 可运行证据 | 说明 |
+|---|---|---|
+| `numeric.Tensor` | [可执行用法](numeric/README.mbt.md) | 显式 shape/dtype/data；整块容差、坐标和有上限的错误样本 |
+| MoonXi CPU Linear | [集成入口](integrations/moonxi/README.md) | 真实第三方前向计算与独立 Python 参考比较 |
+| 一步世界模型 | [场景说明](docs/WORLD_MODEL.md) | 真实 Linear/ReLU 层的小型未训练动力学示例 |
+| `trajectory` 与 RL | [场景说明](docs/RL_TRAJECTORY.md) | 实际运行自建小环境；独立参考和时间/终止语义检查 |
+
+numeric 默认零容差，保持下文的对称绝对或相对公式。形状和 dtype 不同时先报告结构差异，不进行广播或自动变换。默认最多展示 8 个超差元素，完整统计和通过判定不受截断影响。
+
 ## 比较语义
 
 - 对象不考虑键插入顺序，数组按原始下标比较；不做数组重排或按 id 匹配。
@@ -77,16 +88,14 @@ test "readme regression example" {
 
 输入应是有限、无环的 JSON 树。本库不重新解析 JSON，不检测被上游解析器覆盖的重复对象键；不做超大文档性能或安全加固承诺。忽略路径会跳过该子树中的数值检查。差异报告保留输入 Json 的引用，应在检查和报告期间避免修改输入。
 
-## 当前范围与待办
+## 当前验证与交付状态
 
-已实现路径忽略、逐路径容差、结构化报告、断言接口、边界测试和三个可运行示例。尚未验证真实下游项目集成或大规模性能。暂无快照文件管理、自动更新快照、JSON Patch、JSON Schema、无序数组匹配、CLI 文件对比和可视化界面。
+2026-09-14，本机 Wasm、Native 各 54 项测试通过；5 项真实 MoonXi CPU 集成测试通过；三个参考夹具的独立 Python 再生成检查通过。完整验证命令包括格式、check/build、测试和展示。上游 CPU 自身 115 项测试另有通过记录，不计入本库测试数量。
 
-`.github/workflows/check.yml` 配置检查、构建、测试和示例运行；尚未上传仓库，GitHub Actions 未实际运行。发布前需要确定 Mooncakes 用户名、替换模块占位名和仓库地址、进行外部项目试用，并补齐真实开发提交记录。
+`.github/workflows/check.yml` 已复用本地验证脚本，远程 Actions 尚未运行。发布前仍需确认署名、形成至少 10 个有实质内容的 Git 提交、确定 Mooncakes namespace 与仓库地址、发布并获得实际 CI 结果。当前署名未定，开发阶段仅保存本地 tree 快照，正式提交数为 0；详见 [Git 交接](docs/GIT_HANDOFF.md)。
 
-原创实现，未移植同类库源码；工具链模板和标准库来自 MoonBit。当前项目采用模板附带的 Apache-2.0 许可证，见 [LICENSE](LICENSE)。实现与文档由 AI 辅助生成，需由维护者理解、审阅后再作为自己的项目发布。
+暂无快照文件管理、自动更新快照、JSON Patch、无序数组匹配、CLI 文件对比或性能承诺。简化世界模型与 RL 场景不证明模型质量或算法收益。核心为原创实现，未移植同类库源码；ML 集成直接调用 MIT 许可的 MoonXi-net，源码置于被忽略的 `.external/`。本项目采用 [Apache-2.0](LICENSE)，实现与文档由 AI 辅助生成，需由维护者理解、审阅后再发布。
 
-## 项目协作与下一阶段
+## 项目协作
 
-用户已确定下一步增加数值数组适配、接入一个真实 MoonBit 机器学习项目，并以世界模型一步预测和强化学习短轨迹作为两个展示场景。这些扩展目前处于规划阶段；上文测试结果只覆盖现有 JSON 原型。
-
-从 [协作文件入口](docs/codex/README.md) 进入，优先阅读 [当前状态](docs/codex/CURRENT_STATUS.md) 与 [路线图](docs/codex/ROADMAP.md)。项目规则见 [AGENTS.md](AGENTS.md)，项目 skill 位于 [.agents/skills/json-regress-engineering](.agents/skills/json-regress-engineering/SKILL.md)。
+入口为 [当前状态](docs/codex/CURRENT_STATUS.md)、[路线图](docs/codex/ROADMAP.md) 和 [验证记录](docs/codex/VALIDATION.md)。项目规则见 [AGENTS.md](AGENTS.md)，工程 skill 见 [SKILL.md](.agents/skills/json-regress-engineering/SKILL.md)。申报材料的可调整文本见 [AI 辅助参考稿](docs/PROPOSAL_REFERENCE.md)。

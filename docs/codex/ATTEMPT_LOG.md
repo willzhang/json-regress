@@ -22,3 +22,18 @@
 证据类别：
 结论：KEEP / REVISE / REJECT / INCONCLUSIVE
 失败原因及下一步：
+
+## 2026-09-14：M1–M3 实施
+
+| 观察 / 失败 | 修复与结果 |
+|---|---|
+| 默认 sandbox 无法解析 github.com | 经沙箱网络授权读取公开源码；未发送个人资料，锁定 MoonXi 提交 |
+| 从上游 CPU 子目录运行仍加载根工作区 CUDA 依赖 | 使用官方 `MOON_WORK=off` 验证单 CPU 模块，集成自己的 moon.work 只选择 CPU；不修改编译器 |
+| Mooncakes 索引为空，x@0.4.43 无法解析 | 官方 moon update 后下载声明依赖，CPU 115/115 通过 |
+| 未限定包的 workspace info/fmt 会修改上游文件并生成 moon.mod | 恢复本轮引入的格式/接口改动，删除本轮生成的影子 manifest；改为仅选择本模块两个包，锁定源码再次校验干净 |
+| 第三方 shape 类型未直接导入时无法访问字段 | 通过其公开 Tensor::dims API 获取实际形状，未用期望 shape 覆盖 |
+| 本项目旧式 StringBuilder、StringView 和 Float 转换触发弃用警告 | 使用当前工具链建议接口；本项目核心 deny-warn 通过，上游原始警告保留 |
+| 步号保留 `1e-999` 原文时原实现会接受被下溢后的 0 | 轨迹步号复用 numeric 输入校验，新增负例验证拒绝；未修改容差 |
+| JSON 核心/数值扩展可能因后续改动漂移 | 196 组标量边界对照测试；另验完整计数、默认 8 条样本与 JSON 导出隔离 |
+
+固定输入、权重、独立 Python 算式与参考值见 fixtures，真实库提交见 integrations/moonxi/upstream.json。世界模型出现约 1.19e-8 的 Float 与 Double 算式差异，低于预先设置的 1e-6；未根据错误放宽阈值。完整本地验证与范围见 VALIDATION。
