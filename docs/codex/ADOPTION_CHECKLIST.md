@@ -21,11 +21,12 @@
 - [x] M3 世界模型与 RL 分别提供可重跑展示。
 - [ ] 在独立项目目录的新任务中验证 skill 的 UI 发现；父工作区目前通过 AGENTS 链接读入。
 - [ ] 发布前将项目作为仓库根，确认 `.github/` 和 skill 一并保留。
-- [ ] 按真实开发过程建立提交，确认 namespace、仓库地址和 Mooncakes 发布材料。
+- [x] 确认本机 GitHub 登录，配置项目专用署名与 noreply 邮箱，按真实开发阶段建立至少 10 个正式提交并通过数量检查。
+- [ ] 确认 namespace、仓库地址和 Mooncakes 发布材料。
 - [ ] 用户自行重写申报参考稿，并核实官方材料与验收流程。
 
 ## 使用入口
 
-推荐提示：`使用 $json-regress-engineering，读取当前状态，按 Git 交接继续正式提交与发布准备，保留已有验证结果并完成必要检查。`
+推荐提示：`使用 $json-regress-engineering，读取当前状态，按 Git 交接继续包名、仓库与发布准备，保留已有验证结果并完成必要检查。`
 
 如果当前任务的 skill 选择器尚未显示它，可以直接指定 `.agents/skills/json-regress-engineering/SKILL.md`；从父工作区使用 `json-regress/.agents/skills/json-regress-engineering/SKILL.md`。不需要把本项目规则安装到全局。

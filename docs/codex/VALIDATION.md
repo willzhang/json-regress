@@ -31,7 +31,7 @@ bash scripts/moon-local.sh run cmd/main
 
 这是代码/API 改动后的检查集合，按实际影响选择执行。小型文档或协作模板改动只检查链接、结构与内容一致性。`moon info`/`fmt` 会修改生成接口和格式；不得把自动更新测试期望当成发现正确答案的方法。
 
-已验证工具链：moon 0.1.20260904，moonc v0.10.12+1634b282e (2026-09-07)，Apple Silicon macOS。本机路径在脚本中定义，支持 `JSON_REGRESS_MOON_HOME`；临时目录若消失，应报告环境问题并恢复官方工具链，不伪造测试通过。CI 安装 latest，未来版本漂移可能需要单独处理。项目已初始化为独立 Git 仓库，`.github/` 位于其根目录；尚无正式提交或远程 CI 结果。
+已验证工具链：moon 0.1.20260904，moonc v0.10.12+1634b282e (2026-09-07)，Apple Silicon macOS。本机路径在脚本中定义，支持 `JSON_REGRESS_MOON_HOME`；临时目录若消失，应报告环境问题并恢复官方工具链，不伪造测试通过。CI 安装 latest，未来版本漂移可能需要单独处理。项目已初始化为独立 Git 仓库，`.github/` 位于其根目录；已形成 10 个开发阶段正式提交；远程 CI 尚未运行。
 
 ## M1 数值规则检查
 
@@ -68,4 +68,4 @@ RL 只验证记录轨迹和确定性组件契约。环境版本、随机源、�
 - 三个参考夹具通过 `python3 scripts/generate-references.py --check`，校验 JSON、嵌入源码与 SHA-256 清单。生成器没有调用被测实现。
 - MoonXi 记录在 upstream.json；实际 checkout 无源码修改。其弃用警告保存在 `artifacts/moonxi-validation.log`，集成不使用 deny-warn；核心仍严格 deny-warn。
 - `moon package --list` 本地成功打包，未包含 `.external`、`artifacts` 或 `.git`。这不是 Mooncakes 发布；repository 仍为空，工具对此提示警告。
-- Git 快照不是提交；`python3 scripts/check-commits.py` 当前正确返回失败并报告 0/10。远程 CI、发布、官方验收、付款均未完成。
+- Git 快照不是提交；身份配置前 `python3 scripts/check-commits.py` 曾正确失败并报告 0/10。现已将原始 10 个开发阶段的精确 tree 形成正式提交，检查通过；另有状态交接文档更新提交。提交使用真实创建时间，每个阶段的原始观察时间和验证摘要保留在提交正文中。远程 CI、发布、官方验收、付款仍未完成。

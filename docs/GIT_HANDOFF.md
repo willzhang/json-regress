@@ -1,37 +1,25 @@
 # Git 身份与提交交接
 
-用户要求至少 10 个有实际开发价值的提交。本机尚未配置 Git 姓名/邮箱；用户要求稍后提供查询命令，故没有替用户编造身份。独立仓库已建在本项目，分支 `codex/ml-regression`，当前正式提交数 **0**。
+2026-09-14 已核验 GitHub CLI 登录账号 `willzhang`，本项目配置了该账号公开署名 `will zhang` 与 `220442040+willzhang@users.noreply.github.com`。配置只对本仓库生效；登录令牌保留在系统凭据管理中，没有显示、导出或写入项目。
 
-开发过程中按验证完成的顺序实时保存 tree 快照：`.git/local-milestones.json` 记录树、阶段说明、验证摘要和观察时间，`refs/local-milestones/01` 等本地引用保护这些树。它们不包含署名，**不是 commit，也不能计入赛事提交数量**；不会随普通分支推送到 GitHub。不能回填观察时间作为提交时间。
+项目根为独立仓库，分支 `codex/ml-regression`。**10 个实质开发阶段已经形成正式提交**，数量检查通过；另有状态说明更新提交，当前总数请运行检查脚本。完整记录见 [开发历史](DEVELOPMENT_HISTORY.md)。
 
-10 个阶段分别为：JSON 原型基线；完整 numeric API；锁定 MoonXi CPU 薄适配器；独立数值参考；真实层的一步世界模型展示；轨迹校验库；双 episode 的 RL 展示；边界缺陷与兼容性修复；统一验证与 CI；文档、用法测试和申报参考。
+## 历史形成方式
 
-## 查询身份
+开发过程中按验证完成的顺序实时保存 tree 快照；身份确认后逐一生成有父子关系的 commit，每个 commit 的树均与原阶段树完全一致。正式提交使用真实创建时间，原始观察时间与验证摘要写在说明中，未回填日期、重新拆分代码或添加空提交。
 
-本机已经安装 GitHub CLI。已登录时执行：
+本地 `.git/local-milestones.json`、`refs/local-milestones/01` 等引用保留原始树；`.git/materialized-milestones.json` 记录树到正式提交的映射。它们是本地辅助记录，阶段内容现已由当前分支的正式提交保存；将来正常推送分支即可携带提交历史。
 
-```sh
-gh api user --jq '{login: .login, name: (.name // .login), public_email: .email, id: .id, created_at: .created_at}'
-```
-
-若提示未登录，先 `gh auth login`，在自己的浏览器完成 GitHub 登录，不发送令牌。
-
-推荐从 [GitHub 邮箱设置](https://github.com/settings/emails) 复制其显示的 noreply 邮箱，避免在公开提交里使用私人邮箱。2017-07-18 之后注册的账户通常使用 `ID+USERNAME@users.noreply.github.com`；旧账户取决于设置，以页面显示为准。[官方说明](https://docs.github.com/en/account-and-profile/reference/email-addresses-reference)
-
-选择姓名和邮箱后，仅配置本仓库（替换下面占位文字）：
-
-```sh
-git config --local user.name "你选择的署名"
-git config --local user.email "GitHub 显示的 noreply 邮箱"
-```
-
-## 接续代理操作
-
-用户确认身份后，检查上述快照及当前工作树，按记录顺序把每个阶段生成有父子关系的正式提交；使用实际提交时间，不造回溯日期、不覆盖后来的修改。树与验证摘要可用来核验每个阶段的实质内容；不能凭此声称历史远程 CI 已运行。更新本页和 CURRENT_STATUS 的提交状态，然后执行：
+## 接续
 
 ```sh
 python3 scripts/check-commits.py
 git log --oneline --reverse
+gh auth status --hostname github.com
 ```
 
-检查脚本排除空提交和合并提交；阶段的实际开发价值仍需审阅。当前没有 remote，没有推送授权；注册、公开发布、Mooncakes 命名和远程 CI 是独立后续步骤。
+检查脚本排除空提交和合并提交，实际开发价值需审阅。保护现有历史，后续按内聚改动及时提交，不通过 squash 丢失这些阶段。
+
+本地代码与此前通过验证的版本保持一致：Wasm/Native 各 54 项测试、真实 CPU 集成 5 项测试。此次仅建立提交历史和更新状态文档，没有重复执行不受影响的模型测试。
+
+当前未设置 remote，未创建公开仓库，未推送，也未运行远程 CI。下一步确认 Mooncakes 包名、仓库地址及公开发布授权；账号登录本身不替代公开发布授权。无需再向聊天发送任何令牌。

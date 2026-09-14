@@ -92,7 +92,7 @@ numeric 默认零容差，保持下文的对称绝对或相对公式。形状和
 
 2026-09-14，本机 Wasm、Native 各 54 项测试通过；5 项真实 MoonXi CPU 集成测试通过；三个参考夹具的独立 Python 再生成检查通过。完整验证命令包括格式、check/build、测试和展示。上游 CPU 自身 115 项测试另有通过记录，不计入本库测试数量。
 
-`.github/workflows/check.yml` 已复用本地验证脚本，远程 Actions 尚未运行。发布前仍需确认署名、形成至少 10 个有实质内容的 Git 提交、确定 Mooncakes namespace 与仓库地址、发布并获得实际 CI 结果。当前署名未定，开发阶段仅保存本地 tree 快照，正式提交数为 0；详见 [Git 交接](docs/GIT_HANDOFF.md)。
+`.github/workflows/check.yml` 已复用本地验证脚本，远程 Actions 尚未运行。已配置本仓库署名并形成 10 个实质开发阶段提交，数量检查通过；详见 [开发历史](docs/DEVELOPMENT_HISTORY.md)。发布前仍需确定 Mooncakes namespace 与仓库地址、发布并获得实际 CI 结果；详见 [Git 交接](docs/GIT_HANDOFF.md)。
 
 暂无快照文件管理、自动更新快照、JSON Patch、无序数组匹配、CLI 文件对比或性能承诺。简化世界模型与 RL 场景不证明模型质量或算法收益。核心为原创实现，未移植同类库源码；ML 集成直接调用 MIT 许可的 MoonXi-net，源码置于被忽略的 `.external/`。本项目采用 [Apache-2.0](LICENSE)，实现与文档由 AI 辅助生成，需由维护者理解、审阅后再发布。
 

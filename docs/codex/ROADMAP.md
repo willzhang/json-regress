@@ -8,11 +8,11 @@
 | M1 数值数组 | 完成 | numeric API、JSON Pointer、shape/dtype、容差与报告，含 17 项测试 |
 | M2 真实接入 | 完成 CPU 最小链路 | MoonXi 锁定提交、薄适配器、独立 Python 参考、正负例 |
 | M3 两个展示 | 完成 | 真实层的一步动力学推断；自建小环境的双 episode 轨迹 |
-| M4 交付整理 | 本地材料完成，发布待办 | 待署名、至少 10 次正式有效提交、确认 namespace/仓库、远程 CI、Mooncakes 发布与官方提交 |
+| M4 交付整理 | 本地材料完成，发布待办 | 署名及 10 个开发阶段提交已完成；待确认 namespace/仓库、远程 CI、Mooncakes 发布与官方提交 |
 
 ## 下一步
 
-先完成 [Git 身份与提交交接](../GIT_HANDOFF.md)，执行提交数量检查并审阅每次改动。用户尚未授权公开发布、报名或对外联系；这些操作与本地实现分开。申报参考在 [PROPOSAL_REFERENCE](../PROPOSAL_REFERENCE.md)，用户理解并以自己的表述修改后使用。
+[Git 身份与提交交接](../GIT_HANDOFF.md) 已完成；10 个实质开发阶段提交及数量检查通过。后续保留原始开发历史，继续推进包名、仓库与发布准备。用户尚未授权公开发布、报名或对外联系；这些操作与本地实现分开。申报参考在 [PROPOSAL_REFERENCE](../PROPOSAL_REFERENCE.md)，用户理解并以自己的表述修改后使用。
 
 ## 实施边界
 
