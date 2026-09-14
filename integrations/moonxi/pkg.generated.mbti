@@ -11,6 +11,8 @@ pub fn adapt(@nparray.NpArray) -> @numeric.Tensor raise
 
 pub fn linear_output() -> @numeric.Tensor raise
 
+pub fn world_model_output() -> @numeric.Tensor raise
+
 // Errors
 
 // Types and methods

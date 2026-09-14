@@ -29,11 +29,26 @@ pub fn {name}() -> Json raise {{
 }}
 '''
 
+def world_model_reference():
+    state, observation, action = [0.5, -0.25], [0.75], [-1.0]
+    x = state + observation + action
+    w1 = [[0.5, -0.25, 1.0], [1.0, 0.5, -0.5], [-0.5, 1.0, 0.25], [0.25, -0.5, 1.0]]
+    b1 = [0.1, -0.2, 0.05]
+    w2 = [[0.5, 0.25], [-0.75, 0.5], [1.0, -1.0]]
+    b2 = [0.05, -0.1]
+    hidden = [max(0.0, sum(x[k] * w1[k][j] for k in range(4)) + b1[j]) for j in range(3)]
+    y = [sum(hidden[k] * w2[k][j] for k in range(3)) + b2[j] for j in range(2)]
+    return {"schema": "tiny-world-model/v1", "model": "fixed untrained Linear-ReLU-Linear dynamics demo",
+            "inference": "deterministic, no sampling", "layout": "row-major [batch, latent]; input order: state, observation, action",
+            "state": tensor([1, 2], state), "observation": tensor([1, 1], observation), "action": tensor([1, 1], action),
+            "w1": tensor([4, 3], sum(w1, [])), "b1": tensor([1, 3], b1),
+            "w2": tensor([3, 2], sum(w2, [])), "b2": tensor([1, 2], b2), "expected": tensor([1, 2], y)}
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
-    documents = {"linear": linear_reference()}
+    documents = {"linear": linear_reference(), "world_model": world_model_reference()}
     manifest = {"schema": "json-regress-reference/v1", "generator": "python3 scripts/generate-references.py",
                 "source": "Project-authored independent Python scalar arithmetic (Apache-2.0)",
                 "randomness": "none", "files": {}}

@@ -4,6 +4,8 @@ package "local/json_regress/fixtures"
 // Values
 pub fn linear() -> Json raise
 
+pub fn world_model() -> Json raise
+
 // Errors
 
 // Types and methods
