@@ -69,3 +69,19 @@ RL 只验证记录轨迹和确定性组件契约。环境版本、随机源、�
 - MoonXi 记录在 upstream.json；实际 checkout 无源码修改。其弃用警告保存在 `artifacts/moonxi-validation.log`，集成不使用 deny-warn；核心仍严格 deny-warn。
 - `moon package --list` 本地成功打包，未包含 `.external`、`artifacts` 或 `.git`。这不是 Mooncakes 发布；repository 仍为空，工具对此提示警告。
 - Git 快照不是提交；身份配置前 `python3 scripts/check-commits.py` 曾正确失败并报告 0/10。现已将原始 10 个开发阶段的精确 tree 形成正式提交，检查通过；另有状态交接文档更新提交。提交使用真实创建时间，每个阶段的原始观察时间和验证摘要保留在提交正文中。远程 CI、发布、官方验收、付款仍未完成。
+
+## 2026-09-15：M5 完整本地验证
+
+用户确认实现文件入口/标准报告和检查点/比较重放，任务基线 0900883。相同 MoonBit 工具链、Apple Silicon macOS，实际运行 `bash scripts/check-local.sh --integration` 成功。随后补充轨迹缺失行路径修复及回归测试，根模块 Native/Wasm 单测与 CLI 进程验收再次通过，下面记录最终 67 项结果。
+
+- `STATIC_VERIFIED`：根模块 fmt/check/build deny-warn；独立 Native CLI build deny-warn 与定向格式检查；集成 Native/Wasm 检查。接口仅对本项目包执行 info，第三方源码最终干净。
+- `UNIT_VERIFIED`：全库 **67/67 Wasm、67/67 Native**（原 54 + checking 13）；独立集成 **6/6 Native、6/6 Wasm**（原 5 + 三步模型）。没有重复统计测试内的数据组合。
+- `FIXTURE_VERIFIED`：5 组 JSON/嵌入源码再生成与 SHA-256 一致，包括新增三步输入说明和独立 Python 检查点；原 3 组未改变。
+- 文件接口：**19 个进程验收用例**通过，覆盖外部工作目录、0/1/2、稳定输出、形状与布局、无效规则/JSON、数字下溢、符号链接指向输入时拒绝覆盖、帮助与未知选项。移走失败包并删除原始输入后，独立进程仍重现同一报告；修改记录则报告 replay_drift。
+- `INTEGRATION_VERIFIED`：实际运行 MoonXi 三步 Linear/ReLU 模型，Native/Wasm 各生成 9 个检查点；两个后端相对独立 Python 的最大绝对误差均为 **5.960464463661275e-8**，预设阈值 **1e-6**；本次 Native/Wasm 输出差为 **0**。
+- 实际执行自建 RL 环境，两个后端均与独立 Python 轨迹一致；没有真实 RL 算法或 Gymnasium 集成声明。
+- **6 个实际输出对照**：模型与 RL 各自的 Python→Native、Python→Wasm、Native→Wasm。
+- **7 个注错与比较重放**：模型中间层、同 shape 布局、时间位移、缺失检查点、输入来源变化、RL reward 变化和非法步号；分别返回预期类别。中间层失败定位在 `1/linear1`、坐标 `[0,1]`；reward 失败定位在 goal episode 的 step 1。来源及无效轨迹退出 2，其余回归退出 1。
+- 可重建长日志和 JSON 证据位于 `artifacts/moonxi-validation.log` 与 `artifacts/ml-replay/`，不加入发行包；源码与明确生成命令保留在 Git。
+
+本轮没有重跑上游原始 115 项测试，旧结果仍按日期保留。远程 CI 配置调用更新后的同一检查脚本，但 **远程 CI / 包发布 / 官方验收仍 NOT_RUN**。跨后端相等只证明本次固定算例，不保证任意模型、工具链或训练运行一致。重放验证的是捕获的比较；实际模型运行由单独的生成器命令提供证据。

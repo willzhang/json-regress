@@ -11,3 +11,10 @@
 比较 metadata 时，只有 reward 使用调用者明确提供的容差，其余字段严格比较。三个 tensor 字段共用数值数组规则。报告保留 `/行号/字段` 与 tensor 内坐标。缺失 `truncated`、合并为无说明的 `done`、错误 reset、时间错位、奖励符号及终止类型改变均有负例。
 
 `terminated` 与 `truncated` 的区分参考 [Gymnasium 官方说明](https://gymnasium.farama.org/tutorials/gymnasium_basics/handling_time_limits/)。本包没有把二者合并，也不据短轨迹或单次奖励判断算法收益。
+
+
+## M5：文件诊断与比较重放
+
+`bash scripts/moon-local.sh run cmd/export_rl --target native` 或 `--target wasm` 实际运行上述环境并输出 JSON 轨迹。使用 examples/files/trajectory.rules.json 可由 Native CLI 直接比较用户文件。
+
+报告增加 row、episode_id、step、field，按数字行号选择首条诊断，保留 reward 与张量错误详情。输入连续性与结束标志校验仍由 trajectory 执行；无效时间步退出 2，有效轨迹中的回归退出 1。奖励修改与时间错位的失败包已验证可独立重放；重放只重新比较捕获的轨迹，不重新执行环境。见 [文件接口](FILE_COMPARISON.md)。

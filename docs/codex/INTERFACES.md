@@ -40,3 +40,10 @@ Summary 含 total、mismatched、所有元素的 max_absolute_error 和有上限
 允许空数组、最后 episode 的前缀，以及同时 terminated/truncated；不接受非零步号开头片段、重复 episode id 或无结束标志的跨 episode 拼接。详细时序和边界见 [RL 场景](../RL_TRAJECTORY.md)。
 
 世界模型固定 state/observation/action、权重、输入拼接及轴顺序，直接调用 MoonXi 的两层 Linear 与 ReLU。数值推断以独立 Python 算式为参考，详见 [世界模型场景](../WORLD_MODEL.md)。所有参考的生成命令与 JSON 校验和见 [manifest](../../fixtures/manifest.json)，上游提交与许可证见 [upstream](../../integrations/moonxi/upstream.json)。
+
+
+## M5 文件协议与检查点 API（已实现）
+
+公开签名见 [checking/pkg.generated.mbti](../../checking/pkg.generated.mbti)。`evaluate(Json, Json, rules)` 和 `compare_text(String, String, rules_text)` 返回 Report，不向调用方抛出预期输入/规则错误。Report 提供 exit_code、to_json、format。文件文本接口补充数字 token 下溢检测，不改变原始 Json 核心的行为。
+
+`replay_document` 捕获三个原始文本、原报告与来源清单；`replay_text` 重新比较并检查记录漂移。`canonical_json` 为已验证报告提供稳定键序列化。完整四模式规则、检查点唯一性与排序、来源变量、报告字段及 CLI 边界见 [文件协议](../FILE_COMPARISON.md)。
