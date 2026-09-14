@@ -1,0 +1,9 @@
+import {
+  "local/json_regress/checking",
+  "moonbitlang/core/json",
+  "moonbitlang/core/env",
+  "moonbitlang/x/fs",
+  "moonbitlang/x/sys",
+}
+
+pkgtype(kind: "executable")

@@ -1,0 +1,41 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "local/json_regress/checking"
+
+import {
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn canonical_json(Json) -> String
+
+pub fn compare_text(String, String, String) -> Report
+
+pub fn error_report(String, String) -> Report
+
+pub fn evaluate(Json, Json, Json) -> Report
+
+pub fn replay_document(String, String, String, Report, Json) -> Json
+
+pub fn replay_text(String) -> Report
+
+// Errors
+type CheckError derive(@debug.Debug)
+
+// Types and methods
+pub struct Report {
+  mut code : Int
+  mode : String
+  rules : Json
+  limit : Int
+  findings : Array[Json]
+  mut total : Int
+  mut first : Json
+  mut statistics : Json
+}
+pub fn Report::exit_code(Self) -> Int
+pub fn Report::format(Self) -> String
+pub fn Report::to_json(Self) -> Json
+
+// Type aliases
+
+// Traits
