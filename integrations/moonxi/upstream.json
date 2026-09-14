@@ -1,0 +1,13 @@
+{
+  "repository": "https://github.com/moonxi-net/moonxi-net.git",
+  "commit": "b485c25faaefa768e035a534fb1e64fdbfac68a6",
+  "module": "chnlkw/moonxi-net",
+  "module_version": "0.1.1",
+  "module_directory": "moonxi-net",
+  "license": "MIT",
+  "direct_registry_dependency": "moonbitlang/x@0.4.43",
+  "tested_moon": "0.1.20260904 (94521db 2026-09-04)",
+  "tested_moonc": "v0.10.12+1634b282e (2026-09-07)",
+  "backend": "native CPU",
+  "randomness": "none; fixed inputs and weights; no training"
+}

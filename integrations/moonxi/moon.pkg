@@ -1,0 +1,6 @@
+import {
+  "chnlkw/moonxi-net" @tensor,
+  "chnlkw/moonxi-net/model",
+  "chnlkw/moonxi-net/nparray",
+  "local/json_regress/numeric",
+}
