@@ -1,0 +1,4 @@
+import {
+  "local/json_regress",
+  "local/json_regress/numeric",
+}

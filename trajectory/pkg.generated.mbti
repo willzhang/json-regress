@@ -1,0 +1,41 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "local/json_regress/trajectory"
+
+import {
+  "local/json_regress",
+  "local/json_regress/numeric",
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn assert_matches(Json, Json, absolute? : Double, relative? : Double) -> Unit raise
+
+pub fn compare(Json, Json, absolute? : Double, relative? : Double, max_samples? : Int) -> Report raise
+
+pub fn validate(Json) -> Unit raise
+
+// Errors
+pub suberror InvalidTrajectory {
+  InvalidTrajectory(String)
+} derive(@debug.Debug)
+
+pub suberror Mismatch {
+  Mismatch(String)
+} derive(@debug.Debug)
+
+// Types and methods
+pub(all) struct Report {
+  metadata : Array[@json_regress.Difference]
+  tensors : Array[TensorDifference]
+} derive(Eq, @debug.Debug)
+pub fn Report::format(Self) -> String
+pub fn Report::is_match(Self) -> Bool
+
+pub(all) struct TensorDifference {
+  path : String
+  outcome : @numeric.Outcome
+} derive(Eq, @debug.Debug)
+
+// Type aliases
+
+// Traits
