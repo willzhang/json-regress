@@ -1,0 +1,13 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "local/json_regress/examples/rl"
+
+// Values
+pub fn rollout() -> Json
+
+// Errors
+
+// Types and methods
+
+// Type aliases
+
+// Traits

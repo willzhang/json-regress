@@ -1,0 +1,114 @@
+[
+  {
+    "episode_id": "goal",
+    "step": 0,
+    "observation": {
+      "shape": [],
+      "dtype": "float32",
+      "data": [
+        0.0
+      ]
+    },
+    "action": {
+      "shape": [],
+      "dtype": "float32",
+      "data": [
+        1.0
+      ]
+    },
+    "reward": -2.0,
+    "next_observation": {
+      "shape": [],
+      "dtype": "float32",
+      "data": [
+        1.0
+      ]
+    },
+    "terminated": false,
+    "truncated": false
+  },
+  {
+    "episode_id": "goal",
+    "step": 1,
+    "observation": {
+      "shape": [],
+      "dtype": "float32",
+      "data": [
+        1.0
+      ]
+    },
+    "action": {
+      "shape": [],
+      "dtype": "float32",
+      "data": [
+        2.0
+      ]
+    },
+    "reward": -0.0,
+    "next_observation": {
+      "shape": [],
+      "dtype": "float32",
+      "data": [
+        3.0
+      ]
+    },
+    "terminated": true,
+    "truncated": false
+  },
+  {
+    "episode_id": "time",
+    "step": 0,
+    "observation": {
+      "shape": [],
+      "dtype": "float32",
+      "data": [
+        0.0
+      ]
+    },
+    "action": {
+      "shape": [],
+      "dtype": "float32",
+      "data": [
+        -1.0
+      ]
+    },
+    "reward": -4.0,
+    "next_observation": {
+      "shape": [],
+      "dtype": "float32",
+      "data": [
+        -1.0
+      ]
+    },
+    "terminated": false,
+    "truncated": false
+  },
+  {
+    "episode_id": "time",
+    "step": 1,
+    "observation": {
+      "shape": [],
+      "dtype": "float32",
+      "data": [
+        -1.0
+      ]
+    },
+    "action": {
+      "shape": [],
+      "dtype": "float32",
+      "data": [
+        1.0
+      ]
+    },
+    "reward": -3.0,
+    "next_observation": {
+      "shape": [],
+      "dtype": "float32",
+      "data": [
+        0.0
+      ]
+    },
+    "terminated": false,
+    "truncated": true
+  }
+]

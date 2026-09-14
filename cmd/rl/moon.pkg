@@ -1,0 +1,7 @@
+import {
+  "local/json_regress/trajectory",
+  "local/json_regress/fixtures",
+  "local/json_regress/examples/rl" @environment,
+}
+
+pkgtype(kind: "executable")

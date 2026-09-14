@@ -44,11 +44,29 @@ def world_model_reference():
             "w1": tensor([4, 3], sum(w1, [])), "b1": tensor([1, 3], b1),
             "w2": tensor([3, 2], sum(w2, [])), "b2": tensor([1, 2], b2), "expected": tensor([1, 2], y)}
 
+def rl_reference():
+    episodes = [("goal", [1, 2], 4), ("time", [-1, 1], 2)]
+    trace = []
+    for episode_id, actions, horizon in episodes:
+        position = 0
+        for step, action in enumerate(actions):
+            next_position = position + action
+            terminated = next_position >= 3
+            truncated = step + 1 >= horizon
+            trace.append({"episode_id": episode_id, "step": step,
+                          "observation": tensor([], [float(position)]), "action": tensor([], [float(action)]),
+                          "reward": -float(abs(3 - next_position)), "next_observation": tensor([], [float(next_position)]),
+                          "terminated": terminated, "truncated": truncated})
+            position = next_position
+            if terminated or truncated:
+                break
+    return trace
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
-    documents = {"linear": linear_reference(), "world_model": world_model_reference()}
+    documents = {"linear": linear_reference(), "world_model": world_model_reference(), "rl": rl_reference()}
     manifest = {"schema": "json-regress-reference/v1", "generator": "python3 scripts/generate-references.py",
                 "source": "Project-authored independent Python scalar arithmetic (Apache-2.0)",
                 "randomness": "none", "files": {}}

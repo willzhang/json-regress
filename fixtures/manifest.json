@@ -5,6 +5,7 @@
   "randomness": "none",
   "files": {
     "linear.json": "0ea2bf6f866b3d09f407bf80690df2007df06bba7a2e910e80a25511e5ddd9a3",
-    "world_model.json": "fef1373cd8980f4e62b384caaeb283494acbe82553d20b478993f503e0871821"
+    "world_model.json": "fef1373cd8980f4e62b384caaeb283494acbe82553d20b478993f503e0871821",
+    "rl.json": "844a43276e7835e040ca663526cf195903afb4d49db9d6fe3d3abcdc75ad6528"
   }
 }
