@@ -80,7 +80,13 @@ fn parse(document : Json) -> Array[Step] raise {
       String(s) if s != "" => s
       _ => raise InvalidTrajectory("episode_id must be a non-empty string")
     }
-    let index = match field(fields, "step") {
+    let raw_index = field(fields, "step")
+    let _ = @numeric.Tensor::from_json({
+      "shape": [],
+      "dtype": "float64",
+      "data": [raw_index],
+    })
+    let index = match raw_index {
       Number(n, ..) if !n.is_nan() &&
         !n.is_inf() &&
         n >= 0.0 &&

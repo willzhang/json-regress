@@ -86,3 +86,20 @@ test "missing or merged end flags and wrong scalar types are rejected" {
   }
   assert_eq(rejected([row(episode="")]), true)
 }
+
+///|
+test "a preserved fractional step underflow is not silently converted to zero" {
+  let step = row()
+  match step {
+    Object(fields) => fields["step"] = Json::number(0.0, repr="1e-999")
+    _ => fail("expected object")
+  }
+  let invalid = try {
+    @trajectory.validate(Json::array([step]))
+    false
+  } catch {
+    @numeric.InvalidInput(_) => true
+    e => raise e
+  }
+  assert_eq(invalid, true)
+}
