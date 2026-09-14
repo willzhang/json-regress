@@ -19,19 +19,17 @@
 
 报告按编码路径的 UTF-16 字典序排列；深度超过 128 产生差异。完整规则与上游下溢限制见 [README](../../README.mbt.md)。
 
-## 数值数组适配契约草案：M1，尚非公开 API
+## 数值数组 API（M1 已实现）
 
-目标输入：数值数组、显式 shape、dtype 元信息及容差；可从 JSON 子树适配。建议夹具表达：
+公开接口见 [numeric/pkg.generated.mbti](../../numeric/pkg.generated.mbti)。`Tensor::new(shape, dtype, data)` 复制并校验输入；访问 shape/data 也返回副本。`Tensor::from_json(document, pointer?)` 读取精确 JSON Pointer 下的 `{shape, dtype, data}`，`to_json()` 返回这一格式。额外元信息字段允许存在；不做字符串/数字、嵌套数组或 dtype 的隐式转换。
 
-```json
-{"shape":[2,2],"dtype":"float32","data":[0.1,0.2,0.3,0.4]}
-```
+shape 为非负 Int 维度；空 shape 是一个标量，任一零轴表示空 data，其余情况乘积须不超过 2147483647。dtype 是非空、区分大小写的源类型标签，严格比较；不声称验证或恢复原始二进制表示。data 按行优先展开，拒绝非有限值及绝对值大于等于 2^53。JSON 保留的非零下溢字面量也拒绝；已被解析器丢弃的信息无法恢复。
 
-data 按行优先排列。M1 需明确空形状是否表示标量、零长度维度与空数据是否合法、shape 元素范围及元素数溢出的处理；基准决策写入 M1 后再实现。dtype 是声明的源数据类型，Json 中的数值已转换为 Double；比较 dtype 不等于恢复原始张量存储或量化语义。
+`numeric.compare(expected, actual, absolute?=0, relative?=0, max_samples?=8)` 使用与核心相同的对称绝对或相对规则，返回 `ShapeMismatch`、`DtypeMismatch` 或 `Values(Summary)`。形状优先于 dtype；结构不同时不比较重叠前缀。无效输入抛 `InvalidInput`，无效规则抛 `InvalidRule`，断言失败抛 `Mismatch`。
 
-首版要求：shape 与元素数一致；双方 shape、dtype 按约定严格校验；整块 data 应用同一条明确容差；拒绝非数值/非有限值；保留错误坐标。建议报告总元素数、超差数量、最大绝对误差和限定数量的错误样本。限制展示条数不能改变总超差数或通过判定。
+Summary 含 total、mismatched、所有元素的 max_absolute_error 和有上限的错误样本；每条样本包含原下标、行优先坐标、期望/实际值和绝对误差。`max_samples=0` 仍完整计数并正确失败。`Outcome::is_match()` 和 `format()` 可用于 CI 断言和报告。
 
-该草案不支持广播、隐式 reshape、自动转置或自动 dtype 转换。期望值和实际值的参数方向延续现有 API；若以后添加 PyTorch 模式，必须显式命名。PyTorch 的公式为 `|actual-expected| <= atol + rtol*|expected|`，与本库当前规则不同。[官方参考](https://docs.pytorch.org/docs/stable/testing)
+不支持广播、隐式 reshape、自动转置或 dtype 转换。公式不是 PyTorch 的绝对加相对阈值。[PyTorch 官方参考](https://docs.pytorch.org/docs/stable/testing)
 
 ## 场景数据契约草案：M3
 
