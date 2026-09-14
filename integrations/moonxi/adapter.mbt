@@ -11,10 +11,22 @@ pub fn adapt(array : @nparray.NpArray) -> @numeric.Tensor raise {
 ///|
 /// A fixed CPU Linear layer from the real MoonXi-net model package.
 pub fn linear_output() -> @numeric.Tensor raise {
+  let reference = @fixtures.linear()
   let layer : @model.Linear[@nparray.NpArray] = {
-    w: @nparray.NpArray::from2d([[0.5, -1.0], [2.0, 0.25], [-0.5, 1.5]]),
-    b: @nparray.NpArray::from2d([[0.125, -0.25]]),
+    w: from_fixture(reference, "/weight"),
+    b: from_fixture(reference, "/bias"),
   }
-  let input = @nparray.NpArray::from2d([[1.0, -2.0, 0.5], [0.0, 1.0, -1.0]])
+  let input = from_fixture(reference, "/input")
   adapt(layer.forward(input))
+}
+
+///|
+fn from_fixture(document : Json, pointer : String) -> @nparray.NpArray raise {
+  let tensor = @numeric.Tensor::from_json(document, pointer~)
+  @tensor.Tensor::from_host(
+    FixedArray::from_iter(
+      tensor.data().iter().map(fn(v) { Float::from_double(v) }),
+    ),
+    tensor.shape(),
+  )
 }

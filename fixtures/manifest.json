@@ -1,0 +1,9 @@
+{
+  "schema": "json-regress-reference/v1",
+  "generator": "python3 scripts/generate-references.py",
+  "source": "Project-authored independent Python scalar arithmetic (Apache-2.0)",
+  "randomness": "none",
+  "files": {
+    "linear.json": "0ea2bf6f866b3d09f407bf80690df2007df06bba7a2e910e80a25511e5ddd9a3"
+  }
+}
