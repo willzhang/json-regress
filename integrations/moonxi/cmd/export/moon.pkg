@@ -1,0 +1,6 @@
+import {
+  "local/json_regress_moonxi" @integration,
+  "local/json_regress/checking",
+}
+
+pkgtype(kind: "executable")

@@ -1,0 +1,6 @@
+{
+  "schema_version": 1,
+  "mode": "json",
+  "ignore_paths": ["/request_id"],
+  "tolerances": [{"path": "/score", "absolute": 0.01, "relative": 0}]
+}

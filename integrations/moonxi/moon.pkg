@@ -5,3 +5,7 @@ import {
   "local/json_regress/numeric",
   "local/json_regress/fixtures",
 }
+
+import {
+  "local/json_regress/checking",
+} for "test"

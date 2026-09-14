@@ -42,3 +42,25 @@ test "world model latent axis swap and nonfinite output fail closed" {
   }
   assert_eq(rejected, true)
 }
+
+///|
+test "three-step real dynamics exposes nine checkpoints against independent reference" {
+  let expected = @fixtures.world_model_checkpoints()
+  let actual = @json_regress_moonxi.world_model_checkpoints("test")
+  let result = @checking.evaluate(expected, actual, {
+    "schema_version": 1,
+    "mode": "checkpoints",
+    "absolute": 0.000001,
+    "variable_metadata": ["backend", "generator"],
+  })
+  assert_eq(result.exit_code(), 0, msg=result.format())
+  match result.to_json() {
+    Object(f) =>
+      match f["statistics"] {
+        Object(stats) =>
+          assert_eq(stats["compared_checkpoints"], Json::number(9.0))
+        _ => fail("missing statistics")
+      }
+    _ => fail("missing report")
+  }
+}

@@ -63,11 +63,40 @@ def rl_reference():
                 break
     return trace
 
+def rollout_spec():
+    return {"state": [0.5, -0.25], "observations": [[0.75], [0.75], [0.75]],
+            "actions": [[-1.0], [0.5], [-0.25]]}
+
+def digest(document):
+    encoded = json.dumps(document, sort_keys=True, separators=(",", ":"), allow_nan=False)
+    return hashlib.sha256(encoded.encode()).hexdigest()
+
+def world_model_checkpoints():
+    base = world_model_reference()
+    spec = rollout_spec()
+    w1, b1 = base["w1"]["data"], base["b1"]["data"]
+    w2, b2 = base["w2"]["data"], base["b2"]["data"]
+    state = spec["state"][:]
+    points = []
+    for step, (observation, action) in enumerate(zip(spec["observations"], spec["actions"])):
+        x = state + observation + action
+        preactivation = [sum(x[k] * w1[k * 3 + j] for k in range(4)) + b1[j] for j in range(3)]
+        hidden = [max(0.0, value) for value in preactivation]
+        state = [sum(hidden[k] * w2[k * 2 + j] for k in range(3)) + b2[j] for j in range(2)]
+        for layer, values in (("linear1", preactivation), ("relu", hidden), ("latent", state)):
+            points.append({"id": f"{step}/{layer}", "episode_id": "fixed-rollout", "step": step,
+                           "layer": layer, "tensor": tensor([1, len(values)], values)})
+    weights = {key: base[key] for key in ("w1", "b1", "w2", "b2")}
+    return {"schema_version": 1, "metadata": {"model_id": "tiny-untrained-dynamics/v1",
+            "input_sha256": digest(spec), "weights_sha256": digest(weights),
+            "generator": "independent-python-scalar/v1", "backend": "python",
+            "dtype": "float32", "randomness": "none; fixed inputs and weights; 3 steps"}, "checkpoints": points}
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
-    documents = {"linear": linear_reference(), "world_model": world_model_reference(), "rl": rl_reference()}
+    documents = {"linear": linear_reference(), "world_model": world_model_reference(), "rl": rl_reference(), "rollout_spec": rollout_spec(), "world_model_checkpoints": world_model_checkpoints()}
     manifest = {"schema": "json-regress-reference/v1", "generator": "python3 scripts/generate-references.py",
                 "source": "Project-authored independent Python scalar arithmetic (Apache-2.0)",
                 "randomness": "none", "files": {}}

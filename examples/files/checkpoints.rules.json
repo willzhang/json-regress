@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "mode": "checkpoints",
+  "absolute": 0.000001,
+  "relative": 0,
+  "variable_metadata": ["backend", "generator"]
+}

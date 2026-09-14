@@ -6,7 +6,11 @@ pub fn linear() -> Json raise
 
 pub fn rl() -> Json raise
 
+pub fn rollout_spec() -> Json raise
+
 pub fn world_model() -> Json raise
+
+pub fn world_model_checkpoints() -> Json raise
 
 // Errors
 

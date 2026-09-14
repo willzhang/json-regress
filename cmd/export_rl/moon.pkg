@@ -1,0 +1,6 @@
+import {
+  "local/json_regress/examples/rl",
+  "local/json_regress/checking",
+}
+
+pkgtype(kind: "executable")
