@@ -85,3 +85,8 @@ RL 只验证记录轨迹和确定性组件契约。环境版本、随机源、�
 - 可重建长日志和 JSON 证据位于 `artifacts/moonxi-validation.log` 与 `artifacts/ml-replay/`，不加入发行包；源码与明确生成命令保留在 Git。
 
 本轮没有重跑上游原始 115 项测试，旧结果仍按日期保留。远程 CI 配置调用更新后的同一检查脚本，但 **远程 CI / 包发布 / 官方验收仍 NOT_RUN**。跨后端相等只证明本次固定算例，不保证任意模型、工具链或训练运行一致。重放验证的是捕获的比较；实际模型运行由单独的生成器命令提供证据。
+
+
+## 2026-09-15：首次 GitHub 公开发布
+
+`CI_VERIFIED`：提交 `3620117dd3f03f95cc0f346d1f547dcab8984dfd` 的[GitHub Actions](https://github.com/willzhang/json-regress/actions/runs/34912598554) conclusion 为 success。仓库 https://github.com/willzhang/json-regress 已公开，默认分支 codex/ml-regression，原开发历史保留。该工作流实际执行完整本地检查入口，不以本地测试替代远程结果。远程日志缓存在 artifacts/github-ci-34912598554.log，不提交。Mooncakes 包发布与官方报名仍未完成；后续状态见 [PUBLICATION](../PUBLICATION.md)。

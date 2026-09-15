@@ -20,6 +20,6 @@ gh auth status --hostname github.com
 
 检查脚本排除空提交和合并提交，实际开发价值需审阅。保护现有历史，后续按内聚改动及时提交，不通过 squash 丢失这些阶段。
 
-本地代码与此前通过验证的版本保持一致：Wasm/Native 各 54 项测试、真实 CPU 集成 5 项测试。此次仅建立提交历史和更新状态文档，没有重复执行不受影响的模型测试。
+以上历史形成说明对应 2026-09-14。后续 M5 已将全库扩展到 Wasm/Native 各 67 项、真实集成各 6 项；当前结果见 CURRENT_STATUS 与 VALIDATION。
 
-当前未设置 remote，未创建公开仓库，未推送，也未运行远程 CI。下一步确认 Mooncakes 包名、仓库地址及公开发布授权；账号登录本身不替代公开发布授权。无需再向聊天发送任何令牌。
+2026-09-15 用户明确授权公开发布。origin 已设置为 https://github.com/willzhang/json-regress.git，默认分支已推送；[首次远程 CI](https://github.com/willzhang/json-regress/actions/runs/34912598554) 通过。Mooncakes 仍需独立登录及确认包名；报名尚未提交。详见 [发布交接](PUBLICATION.md)。
