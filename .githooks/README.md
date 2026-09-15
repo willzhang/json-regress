@@ -2,7 +2,7 @@
 
 ## Pre-commit Hook
 
-This pre-commit hook performs automatic checks before finalizing your commit.
+This optional pre-commit hook checks the staged publication contents without printing matched values, then runs the MoonBit checker through the portable toolchain wrapper.
 
 ### Usage Instructions
 

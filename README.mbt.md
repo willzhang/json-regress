@@ -4,7 +4,7 @@
 
 面向 MoonBit 的 JSON、数值数组与轨迹回归断言库。对明确路径忽略易变字段，对浮点输出设置容差，严格校验 shape/dtype，并报告具体路径、错误坐标和超差统计。已接入真实 MoonXi-net CPU 层，提供三步未训练动力学检查点和 RL 短轨迹展示；文件命令支持标准 JSON 报告与可携带的失败比较重放。
 
-源码仓库：[willzhang/json-regress](https://github.com/willzhang/json-regress)。已发布到 [Mooncakes：willzhang/json_regress@0.1.0](https://mooncakes.io/docs/willzhang/json_regress)。核心使用现有 `Json` 类型，无第三方运行时依赖；可选 ML 集成和 Native 文件 CLI 分别在独立模块中。
+源码仓库：[willzhang/json-regress](https://github.com/willzhang/json-regress)。发行包：[Mooncakes：willzhang/json_regress@0.1.1](https://mooncakes.io/docs/willzhang/json_regress)。核心使用现有 `Json` 类型，无第三方运行时依赖；可选 ML 集成和 Native 文件 CLI 分别在独立模块中。
 
 ## 快速运行
 
@@ -34,7 +34,7 @@ bash scripts/json-regress.sh compare examples/files/baseline.json examples/files
 在调用方项目中添加依赖：
 
 ```sh
-moon add willzhang/json_regress@0.1.0
+moon add willzhang/json_regress@0.1.1
 ```
 
 在调用方的 `moon.pkg` 中导入：
@@ -109,10 +109,10 @@ numeric 默认零容差，保持下文的对称绝对或相对公式。形状和
 
 2026-09-15，本机 Wasm、Native 各 67 项测试通过；两个后端各 6 项真实 MoonXi CPU 集成测试通过；另有 19 项 CLI 进程验收、6 个真实输出对照和 7 个注错/比较重放通过。5 组参考与输入文件通过独立 Python 再生成检查。上游 CPU 自身 115 项测试另有较早通过记录，不计入本库测试数量。
 
-`.github/workflows/check.yml` 复用本地验证脚本；[首次远程 Actions](https://github.com/willzhang/json-regress/actions/runs/34912598554) 已在提交 `3620117` 通过。已配置本仓库署名并形成 10 个实质开发阶段提交，数量检查通过；详见 [开发历史](docs/DEVELOPMENT_HISTORY.md)。GitHub 仓库已公开，Mooncakes `0.1.0` 已发布并通过仓库外独立安装验证；发布与报名交接见 [PUBLICATION](docs/PUBLICATION.md)。
+`.github/workflows/check.yml` 复用本地验证脚本；[首次远程 Actions](https://github.com/willzhang/json-regress/actions/runs/34912598554) 已在提交 `3620117` 通过。已配置本仓库署名并形成 10 个实质开发阶段提交，数量检查通过；详见 [开发历史](https://github.com/willzhang/json-regress/blob/codex/ml-regression/docs/DEVELOPMENT_HISTORY.md)。GitHub 仓库已公开，Mooncakes 的发行状态见发布说明；发布与报名交接见 [PUBLICATION](https://github.com/willzhang/json-regress/blob/codex/ml-regression/docs/PUBLICATION.md)。
 
 暂无快照文件管理、自动更新快照、JSON Patch、无序数组匹配或性能承诺。简化世界模型与 RL 场景不证明模型质量或算法收益。核心为原创实现，未移植同类库源码；ML 集成直接调用 MIT 许可的 MoonXi-net，源码置于被忽略的 `.external/`。本项目采用 [Apache-2.0](LICENSE)，实现与文档由 AI 辅助生成，需由维护者理解、审阅后再发布。
 
 ## 项目协作
 
-入口为 [当前状态](docs/codex/CURRENT_STATUS.md)、[路线图](docs/codex/ROADMAP.md) 和 [验证记录](docs/codex/VALIDATION.md)。项目规则见 [AGENTS.md](AGENTS.md)，工程 skill 见 [SKILL.md](.agents/skills/json-regress-engineering/SKILL.md)。申报材料的可调整文本见 [AI 辅助参考稿](docs/PROPOSAL_REFERENCE.md)。
+入口为 [当前状态](https://github.com/willzhang/json-regress/blob/codex/ml-regression/docs/codex/CURRENT_STATUS.md)、[路线图](https://github.com/willzhang/json-regress/blob/codex/ml-regression/docs/codex/ROADMAP.md) 和 [验证记录](https://github.com/willzhang/json-regress/blob/codex/ml-regression/docs/codex/VALIDATION.md)。项目规则见 [AGENTS.md](https://github.com/willzhang/json-regress/blob/codex/ml-regression/AGENTS.md)，工程 skill 见 [SKILL.md](.agents/skills/json-regress-engineering/SKILL.md)。申报材料的可调整文本见 [AI 辅助参考稿](https://github.com/willzhang/json-regress/blob/codex/ml-regression/docs/PROPOSAL_REFERENCE.md)。

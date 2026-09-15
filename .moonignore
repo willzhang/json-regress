@@ -1,0 +1,19 @@
+# Distribution files do not include private settings, caches, or project administration.
+_build/
+target/
+.external/
+artifacts/
+.moon-home
+.env
+.env.*
+.venv/
+__pycache__/
+*.py[cod]
+/AGENTS.md
+/CONTRIBUTING.md
+/docs/codex/
+/docs/PROPOSAL_REFERENCE.md
+/docs/PUBLICATION.md
+/docs/GIT_HANDOFF.md
+/docs/DEVELOPMENT_HISTORY.md
+/docs/COMPETITIVE_REVIEW-2026-09-15.md

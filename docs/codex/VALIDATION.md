@@ -98,3 +98,9 @@ RL 只验证记录轨迹和确定性组件契约。环境版本、随机源、�
 ## 2026-09-15 注册表发布与独立消费
 
 `REGISTRY_VERIFIED`：发布源提交 `dde5140df0234f718f2ae16ff36364aa319a3028` 的远程 CI 通过；`moon publish` 返回 200 OK。[Mooncakes 包页](https://mooncakes.io/docs/willzhang/json_regress) 可访问，版本为 0.1.0。全新独立目录从注册表下载依赖，无本地路径替代；归档 120 个文件与本地审计包逐字节一致。根库、numeric、trajectory、checking 消费测试在 Wasm/Native 各 3/3，通过、差异和非法输入语义均符合预期。元数据与哈希在忽略的 artifacts/mooncakes-release.json；完整发布记录见 [PUBLICATION](../PUBLICATION.md)。本轮没有改动或提交用户正在编辑的申报参考稿。
+
+## 2026-09-15 发行文件与历史清理
+
+保留 19 个已有提交的顺序、署名、时间与说明；逐提交核对库实现及测试源码未变。`check-publication.py --history` 检查 268 个可达提交/文件对象，无命中。发行归档目前为 100 个文件，仓库管理和申报材料不包含在内；归档检查无命中。发布检查的 8 项正反例验证通过。
+
+通用工具链入口与 0.1.1 元数据的完整 `check-local.sh --integration` 验证通过：Wasm/Native 各 67 项、真实集成各 6 项、CLI 19 项、实际输出对照 6 项及注错重放 7 项。比较引擎与报告协议保持不变。注册表上传、独立安装及新提交远程 CI 另行记录。

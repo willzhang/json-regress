@@ -86,7 +86,7 @@ id 在包内唯一，episode/step/layer 组合也唯一。一个 episode 的检�
 
 | 字段 | 含义 |
 |---|---|
-| `schema_version`、`tool_version` | 当前为 1、0.1.0 |
+| `schema_version`、`tool_version` | 比较协议为 1、比较引擎为 0.1.0；发行包 0.1.1 仅调整交付文件，保留旧比较包兼容性 |
 | `mode`、`status`、`exit_code` | 模式、match/mismatch/error、0/1/2 |
 | `rules` | 解析成功时保留调用者提供的规则；语义仍包含文档规定的默认值 |
 | `findings_total` | 未截断的诊断项数量；不是出错元素总数 |
@@ -113,4 +113,4 @@ bash scripts/moon-local.sh run cmd/export_rl --target wasm
 
 参考中的 float32 标签表示预期的输出类型契约，Python 标量参考采用 Double 精度计算，未声称模拟逐操作 Float 舍入。世界模型命令实际执行锁定 MoonXi 的 Linear/ReLU，三步递推来自前一步的真实 Float 输出，每步保存 linear1、relu、latent 共 9 个检查点；仍是固定、未训练的小型动力学示例。后端标签由编译目标生成。RL 命令实际执行项目自建确定性环境，输出完整规范轨迹。
 
-`scripts/check-ml-replay.py` 比较这四份实际输出、独立 Python 参考及跨后端结果，并验证中间层、同 shape 布局、检查点时间/缺失、来源、RL reward/时间等 7 个负例及重放。可重建证据位于被 Git 忽略的 `artifacts/ml-replay/`；长期结果摘要见 [验证记录](codex/VALIDATION.md)。
+`scripts/check-ml-replay.py` 比较这四份实际输出、独立 Python 参考及跨后端结果，并验证中间层、同 shape 布局、检查点时间/缺失、来源、RL reward/时间等 7 个负例及重放。可重建证据位于被 Git 忽略的 `artifacts/ml-replay/`；长期结果摘要见 [验证记录](https://github.com/willzhang/json-regress/blob/codex/ml-regression/docs/codex/VALIDATION.md)。

@@ -1,6 +1,6 @@
 # 公开发布与报名交接
 
-更新：2026-09-15。用户已明确授权公开发布代码和软件包。
+更新：2026-09-15。仓库和软件包的交付入口如下。
 
 ## 已完成
 
@@ -9,7 +9,7 @@
 - 首次远程验证：[GitHub Actions 34912598554](https://github.com/willzhang/json-regress/actions/runs/34912598554)，conclusion 为 success。该流程调用与本地相同的 `scripts/check-local.sh --integration`。
 - README、许可证、源码、测试、可运行示例及申报参考已公开。Git 历史的凭据特征检查未发现令牌、私钥或非 noreply 邮箱；本地凭据、构建缓存、第三方源码缓存与运行产物没有推送。
 
-## Mooncakes 已发布
+## Mooncakes 发行记录
 
 2026-09-15，`moon whoami` 已确认 `Logged in as willzhang`。主模块统一为 `willzhang/json_regress@0.1.0`，内部导入和独立模块依赖同步更新。CLI 与 MoonXi 集成继续是源码仓库中的本地模块，不单独发布。
 
@@ -41,3 +41,9 @@ moon add willzhang/json_regress@0.1.0
 4. 按官方入口加入赛事交流群，继续保留实质开发和修复记录，并按审核反馈准备验收。
 
 官网写明本期 9 月 24 日验收并截止报名，最终执行口径以[赛事章程](https://bxup9uklfcb.feishu.cn/wiki/Dx4Bwd6D1i3GfHkajQCcF7SznEd)和官方通知为准。本轮核验了官网实际指向的链接；没有代填报名表、提交个人资料或联系赛事人员。仓库公开和 CI 通过不代表资格审核、验收或奖励发放已完成。
+
+## 0.1.1 发布准备
+
+本轮将环境相关设置迁至未跟踪的本地配置，并通过 `.moonignore` 将仓库管理和申报文档排除出软件包。原有开发阶段保留；库代码及比较协议不变。安装目标为 `willzhang/json_regress@0.1.1`，本节在注册表上传和独立安装完成后记录结果。
+
+检查命令：`python3 scripts/check-publication.py --history`、`moon package --list` 以及 `python3 scripts/check-publication.py --archive <archive.zip>`。检查只输出文件位置与类别。

@@ -1,3 +1,4 @@
 #!/bin/sh
-
-moon check
+set -eu
+python3 scripts/check-publication.py --staged
+bash scripts/moon-local.sh check
