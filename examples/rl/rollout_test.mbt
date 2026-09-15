@@ -26,10 +26,11 @@ test "action time shift and reward sign errors are detected" {
   let report = @trajectory.compare(@fixtures.rl(), shifted)
   assert_eq(report.tensors[0].path, "/0/action")
   let sign_error = change(@rl.rollout(), 0, "reward", 2)
-  assert_eq(
-    @trajectory.compare(@fixtures.rl(), sign_error).metadata[0].path,
-    "/0/reward",
-  )
+  let reward_difference : @json_regress.Difference = @trajectory.compare(
+      @fixtures.rl(),
+      sign_error,
+    ).metadata[0]
+  assert_eq(reward_difference.path, "/0/reward")
 }
 
 ///|

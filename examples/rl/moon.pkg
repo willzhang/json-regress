@@ -1,5 +1,6 @@
 // The deterministic environment itself only uses the MoonBit standard library.
 import {
+  "willzhang/json_regress",
   "willzhang/json_regress/trajectory",
   "willzhang/json_regress/fixtures",
 } for "test"
