@@ -1,6 +1,6 @@
 # 当前项目状态
 
-更新：2026-09-15。M0–M3 与本轮 M5 两项扩展均已完成本地实现与验证，M4 发布/申报仍待完成。独立 Git 仓库位于项目根，分支 `codex/ml-regression`。GitHub 登录已确认（willzhang）；仅为本仓库配置公开署名及 noreply 邮箱。**10 个开发阶段均已形成正式提交，数量检查通过**，另有交接文档更新提交，当前总数以检查脚本为准。见 [开发历史](../DEVELOPMENT_HISTORY.md) 和 [Git 交接](../GIT_HANDOFF.md)。
+更新：2026-09-15。M0–M3 与本轮 M5 两项扩展均已完成本地实现与验证，M4 的 GitHub/Mooncakes 发布已完成，正式申报仍待用户提交。独立 Git 仓库位于项目根，分支 `codex/ml-regression`。GitHub 登录已确认（willzhang）；仅为本仓库配置公开署名及 noreply 邮箱。**10 个开发阶段均已形成正式提交，数量检查通过**，另有交接文档更新提交，当前总数以检查脚本为准。见 [开发历史](../DEVELOPMENT_HISTORY.md) 和 [Git 交接](../GIT_HANDOFF.md)。
 
 ## 已完成与证据
 
@@ -19,7 +19,7 @@
 | M5 文件比较 | json/tensor/trajectory/checkpoints；schema 1 标准报告、0/1/2 退出码、文本数字下溢检查；13 项单测及 19 项进程验收 |
 | M5 模型定位与重放 | 三步 9 检查点、来源门槛、顺序/时间/shape/dtype/坐标诊断；6 个真实输出对照和 7 个注错及重放通过 |
 | 跨后端结果 | 本次模型 Native/Wasm 差为 0；两者相对独立 Python 最大绝对误差约 5.96e-8，预设阈值 1e-6 |
-| CI / 发布 / 报名 | [公开仓库](https://github.com/willzhang/json-regress) 已上线；[首次远程 CI](https://github.com/willzhang/json-regress/actions/runs/34912598554) 在 `3620117` 通过；Mooncakes 用户名已确认为 willzhang，正式包上传待执行；报名尚未提交 |
+| CI / 发布 / 报名 | [公开仓库](https://github.com/willzhang/json-regress) 已上线；[首次远程 CI](https://github.com/willzhang/json-regress/actions/runs/34912598554) 在 `3620117` 通过；[Mooncakes 0.1.0](https://mooncakes.io/docs/willzhang/json_regress) 已发布；发布提交 [CI](https://github.com/willzhang/json-regress/actions/runs/34930620813) 通过；独立消费测试两后端各 3/3；报名尚未提交 |
 
 ## 复现入口
 
@@ -35,6 +35,6 @@
 
 数值基于 Double，保守拒绝非有限值和绝对值大于等于 2^53；无法恢复上游已丢失精度。dtype 是源类型标签，不是二进制转换。轨迹要求从 step 0 开始，允许最后 episode 是前缀，同 episode 观测连续性严格相等。ML 只验证本次固定 CPU 算例，未验证 GPU、模型训练质量或算法收益。当前模块名为 `willzhang/json_regress@0.1.0`；内部导入与集成依赖已同步，主模块的 repository 指向公开仓库。
 
-2026-09-15 用户已授权公开发布。GitHub `willzhang/json-regress` 已公开且首次远程 CI 通过；Mooncakes 登录和 namespace 配置已完成，改名后完整本地验证通过，待上传软件包并验证独立安装。官方报名需公开仓库与一页说明，不必等待 Mooncakes；个人资料和申报表尚未提交。
+2026-09-15 用户已授权公开发布。GitHub `willzhang/json-regress` 已公开且首次远程 CI 通过；Mooncakes `willzhang/json_regress@0.1.0` 已发布，完整本地与远程验证通过；独立项目从注册表安装成功，根库和三个子包在 Native/Wasm 的消费测试均通过。官方报名需公开仓库与一页说明，不必等待 Mooncakes；个人资料和申报表尚未提交。
 
-2026-09-15：[同类项目评估](../COMPETITIVE_REVIEW-2026-09-15.md) 后，用户确认实施文件报告与模型检查点/比较重放，两项已完成。任务契约见 [M5](tasks/M5-FILE-REPORT-REPLAY.md)。原始核心 API 和默认容差不变；比较重放不执行模型，真实生成器运行独立记录。M4 剩余 Mooncakes 上传/独立安装验证和用户正式申报，详见 [发布交接](../PUBLICATION.md)；不继续扩建训练或 GPU 范围。
+2026-09-15：[同类项目评估](../COMPETITIVE_REVIEW-2026-09-15.md) 后，用户确认实施文件报告与模型检查点/比较重放，两项已完成。任务契约见 [M5](tasks/M5-FILE-REPORT-REPLAY.md)。原始核心 API 和默认容差不变；比较重放不执行模型，真实生成器运行独立记录。M4 的工程发布已完成，剩余用户正式申报与后续官方审核/验收，详见 [发布交接](../PUBLICATION.md)；不继续扩建训练或 GPU 范围。

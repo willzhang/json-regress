@@ -10,16 +10,16 @@
 | M3 两个展示 | 完成 | 真实层的一步动力学推断；自建小环境的双 episode 轨迹 |
 | M5-A 文件入口与报告 | 完成 | 独立 Native CLI、四种模式、JSON 报告、退出码与 19 项进程验收 |
 | M5-B 模型检查点与比较重放 | 完成 | 三步 9 检查点、真实 Native/Wasm 输出对照、来源/层/时间诊断及可携带重放 |
-| M4 交付整理 | GitHub 已公开，首次远程 CI 通过 | 保留全部历史；待 Mooncakes 登录/namespace/发包及正式报名，见 [发布交接](../PUBLICATION.md) |
+| M4 交付整理 | GitHub 与 Mooncakes 0.1.0 已发布，远程 CI 和独立安装通过 | 保留全部历史；剩余正式报名与官方审核/验收，见 [发布交接](../PUBLICATION.md) |
 
 ## 下一步
 
-[Git 身份与提交交接](../GIT_HANDOFF.md) 已完成；10 个实质开发阶段提交及数量检查通过。后续保留原始开发历史，继续推进包名、仓库与发布准备。2026-09-15 用户已授权公开发布，仓库已公开且首次 CI 通过，正在等待 Mooncakes 登录后发包；报名和对外联系仍与发布分开。申报参考在 [PROPOSAL_REFERENCE](../PROPOSAL_REFERENCE.md)，用户理解并以自己的表述修改后使用。
+[Git 身份与提交交接](../GIT_HANDOFF.md) 已完成；10 个实质开发阶段提交及数量检查通过。原始开发历史已保留。2026-09-15 已按用户授权公开 GitHub 仓库和 Mooncakes `willzhang/json_regress@0.1.0`，发布提交 CI 通过且独立项目消费验证成功；报名和对外联系仍与发布分开。申报参考在 [PROPOSAL_REFERENCE](../PROPOSAL_REFERENCE.md)，用户理解并以自己的表述修改后使用。
 
 ## 实施边界
 
-2026-09-15 的[同类项目评估](../COMPETITIVE_REVIEW-2026-09-15.md) 提出的两项增量已获用户确认并完成，验证见 [M5](tasks/M5-FILE-REPORT-REPLAY.md)。没有引入第二个 ML 框架或训练流程；下一步集中在 M4。
+2026-09-15 的[同类项目评估](../COMPETITIVE_REVIEW-2026-09-15.md) 提出的两项增量已获用户确认并完成，验证见 [M5](tasks/M5-FILE-REPORT-REPLAY.md)。没有引入第二个 ML 框架或训练流程；下一步集中在 M4 的申报与验收材料。
 
-已用小型 CPU 链路证实可行，无需新增 GPU 训练或第二个 ML 框架。后续集中于审阅、包名、CI、材料与渠道确认。
+已用小型 CPU 链路证实可行，无需新增 GPU 训练或第二个 ML 框架。后续集中于申报材料审阅与官方验收反馈。
 
 按 9 月 23 日准备交付材料规划；赛事公开截止日为 9 月 24 日，正式安排需继续向官方核实。[赛事入口](https://moonbitlang.github.io/Hackathon2026/)

@@ -9,13 +9,27 @@
 - 首次远程验证：[GitHub Actions 34912598554](https://github.com/willzhang/json-regress/actions/runs/34912598554)，conclusion 为 success。该流程调用与本地相同的 `scripts/check-local.sh --integration`。
 - README、许可证、源码、测试、可运行示例及申报参考已公开。Git 历史的凭据特征检查未发现令牌、私钥或非 noreply 邮箱；本地凭据、构建缓存、第三方源码缓存与运行产物没有推送。
 
-## Mooncakes 发布准备
+## Mooncakes 已发布
 
 2026-09-15，`moon whoami` 已确认 `Logged in as willzhang`。主模块统一为 `willzhang/json_regress@0.1.0`，内部导入和独立模块依赖同步更新。CLI 与 MoonXi 集成继续是源码仓库中的本地模块，不单独发布。
 
 本轮问题：将本地占位包转为可从注册表安装的正式依赖。基线为已公开且 CI 通过的代码；行为与容差保持不变。输入是已确认的 namespace 与完整 Git 提交；输出是发布包和独立消费验证。先运行现有全量验证，再从提交导出干净目录打包，避免把正在编辑的申报稿带入发布。发布后在仓库外添加 `willzhang/json_regress@0.1.0`，验证根库与 checking/numeric/trajectory 导入，以及应通过和应失败的比较。无需新增训练或付费资源。
 
-当前状态：namespace 已确认；包上传和独立消费仍待执行。官方包管理说明：[账号与发布](https://docs.moonbitlang.com/en/latest/toolchain/moon/package-manage-tour.html)。
+发布结果：`moon publish` 返回 `Server status: 200 OK`。公开包页为 [willzhang/json_regress@0.1.0](https://mooncakes.io/docs/willzhang/json_regress)，公开 ZIP 的 120 个文件与审计后的归档逐字节一致。
+
+- 发布来源提交：`dde5140df0234f718f2ae16ff36364aa319a3028`。
+- 该提交的[远程 CI](https://github.com/willzhang/json-regress/actions/runs/34930620813) 已通过。
+- 发布归档 SHA-256：`43a010e854bf899a35f6a8a051e973d8434f624741de7eec2a99acbad849f6d4`。
+- 独立临时项目仅声明注册表依赖，无本地 workspace/path 引用；`moon add willzhang/json_regress@0.1.0` 实际下载成功。Wasm 和 Native 各 3 项消费测试通过，覆盖根库、numeric、trajectory、checking 导入，以及匹配、差异和非法输入三个结果。
+- 原工作区正在编辑的申报参考稿保持原样，未纳入这次提交或发布；发布使用上述 Git 提交中的公开参考稿。
+
+安装命令：
+
+```sh
+moon add willzhang/json_regress@0.1.0
+```
+
+本轮发布已完成。官方包管理说明：[账号与发布](https://docs.moonbitlang.com/en/latest/toolchain/moon/package-manage-tour.html)。
 
 ## 报名顺序
 

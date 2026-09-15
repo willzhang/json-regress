@@ -94,3 +94,7 @@ RL 只验证记录轨迹和确定性组件契约。环境版本、随机源、�
 ## 2026-09-15 Mooncakes 正式 namespace
 
 `willzhang/json_regress@0.1.0` 替换主库占位名，内部导入和两个本地模块的依赖同步更新；`moon info` 重新生成接口，未改变比较逻辑。完整 `bash scripts/check-local.sh --integration` 再次通过：Wasm/Native 各 67 项、真实集成各 6 项、19 项 CLI 进程验收、6 个实际输出对照和 7 个注错重放；五组独立参考仍一致。日志在忽略的 `artifacts/mooncakes-prepublish-validation.log`。此处记录发布前本地验证，注册表上传及独立安装结果在 PUBLICATION 中补充。
+
+## 2026-09-15 注册表发布与独立消费
+
+`REGISTRY_VERIFIED`：发布源提交 `dde5140df0234f718f2ae16ff36364aa319a3028` 的远程 CI 通过；`moon publish` 返回 200 OK。[Mooncakes 包页](https://mooncakes.io/docs/willzhang/json_regress) 可访问，版本为 0.1.0。全新独立目录从注册表下载依赖，无本地路径替代；归档 120 个文件与本地审计包逐字节一致。根库、numeric、trajectory、checking 消费测试在 Wasm/Native 各 3/3，通过、差异和非法输入语义均符合预期。元数据与哈希在忽略的 artifacts/mooncakes-release.json；完整发布记录见 [PUBLICATION](../PUBLICATION.md)。本轮没有改动或提交用户正在编辑的申报参考稿。

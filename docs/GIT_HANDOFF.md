@@ -22,4 +22,4 @@ gh auth status --hostname github.com
 
 以上历史形成说明对应 2026-09-14。后续 M5 已将全库扩展到 Wasm/Native 各 67 项、真实集成各 6 项；当前结果见 CURRENT_STATUS 与 VALIDATION。
 
-2026-09-15 用户明确授权公开发布。origin 已设置为 https://github.com/willzhang/json-regress.git，默认分支已推送；[首次远程 CI](https://github.com/willzhang/json-regress/actions/runs/34912598554) 通过。Mooncakes 仍需独立登录及确认包名；报名尚未提交。详见 [发布交接](PUBLICATION.md)。
+2026-09-15 用户明确授权公开发布。origin 已设置为 https://github.com/willzhang/json-regress.git，默认分支已推送；[首次远程 CI](https://github.com/willzhang/json-regress/actions/runs/34912598554) 通过。Mooncakes `willzhang/json_regress@0.1.0` 已发布，来源提交 `dde5140` 的远程 CI 与独立安装验证通过；报名尚未提交。详见 [发布交接](PUBLICATION.md)。
