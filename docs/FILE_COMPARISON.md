@@ -86,7 +86,7 @@ id 在包内唯一，episode/step/layer 组合也唯一。一个 episode 的检�
 
 | 字段 | 含义 |
 |---|---|
-| `schema_version`、`tool_version` | 比较协议为 1、比较引擎为 0.1.0；发行包 0.1.1 仅调整交付文件，保留旧比较包兼容性 |
+| `schema_version`、`tool_version` | 比较协议为 1、比较引擎为 0.1.0；发行包 0.1.1/0.1.2 仅调整交付文件和测试配置，保留旧比较包兼容性 |
 | `mode`、`status`、`exit_code` | 模式、match/mismatch/error、0/1/2 |
 | `rules` | 解析成功时保留调用者提供的规则；语义仍包含文档规定的默认值 |
 | `findings_total` | 未截断的诊断项数量；不是出错元素总数 |
