@@ -4,7 +4,7 @@
 
 面向 MoonBit 的 JSON、数值数组与轨迹回归断言库。对明确路径忽略易变字段，对浮点输出设置容差，严格校验 shape/dtype，并报告具体路径、错误坐标和超差统计。已接入真实 MoonXi-net CPU 层，提供三步未训练动力学检查点和 RL 短轨迹展示；文件命令支持标准 JSON 报告与可携带的失败比较重放。
 
-源码仓库：[willzhang/json-regress](https://github.com/willzhang/json-regress)。发行包：[Mooncakes：willzhang/json_regress@0.1.2](https://mooncakes.io/docs/willzhang/json_regress)。核心使用现有 `Json` 类型，无第三方运行时依赖；可选 ML 集成和 Native 文件 CLI 分别在独立模块中。
+源码仓库：[willzhang/json-regress](https://github.com/willzhang/json-regress)。已发布 [Mooncakes：willzhang/json_regress@0.1.2](https://mooncakes.io/docs/willzhang/json_regress)。核心使用现有 `Json` 类型，无第三方运行时依赖；可选 ML 集成和 Native 文件 CLI 分别在独立模块中。
 
 ## 快速运行
 

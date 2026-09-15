@@ -19,7 +19,7 @@
 | M5 文件比较 | json/tensor/trajectory/checkpoints；schema 1 标准报告、0/1/2 退出码、文本数字下溢检查；13 项单测及 19 项进程验收 |
 | M5 模型定位与重放 | 三步 9 检查点、来源门槛、顺序/时间/shape/dtype/坐标诊断；6 个真实输出对照和 7 个注错及重放通过 |
 | 跨后端结果 | 本次模型 Native/Wasm 差为 0；两者相对独立 Python 最大绝对误差约 5.96e-8，预设阈值 1e-6 |
-| CI / 发布 / 报名 | [公开仓库](https://github.com/willzhang/json-regress) 已上线；[首次远程 CI](https://github.com/willzhang/json-regress/actions/runs/34912598554) 在 `3620117` 通过；[Mooncakes 0.1.0](https://mooncakes.io/docs/willzhang/json_regress) 已发布；发布提交 [CI](https://github.com/willzhang/json-regress/actions/runs/34930620813) 通过；独立消费测试两后端各 3/3；报名尚未提交 |
+| CI / 发布 / 报名 | [公开仓库](https://github.com/willzhang/json-regress) 已上线；[首次远程 CI](https://github.com/willzhang/json-regress/actions/runs/34912598554) 在 `3620117` 通过；[Mooncakes 0.1.2](https://mooncakes.io/docs/willzhang/json_regress) 已发布；发布提交 [CI](https://github.com/willzhang/json-regress/actions/runs/34963192482) 通过；独立消费测试两后端各 3/3；报名尚未提交 |
 
 ## 复现入口
 
@@ -33,8 +33,10 @@
 
 ## 已知边界与下一步
 
-数值基于 Double，保守拒绝非有限值和绝对值大于等于 2^53；无法恢复上游已丢失精度。dtype 是源类型标签，不是二进制转换。轨迹要求从 step 0 开始，允许最后 episode 是前缀，同 episode 观测连续性严格相等。ML 只验证本次固定 CPU 算例，未验证 GPU、模型训练质量或算法收益。当前模块名为 `willzhang/json_regress@0.1.0`；内部导入与集成依赖已同步，主模块的 repository 指向公开仓库。
+数值基于 Double，保守拒绝非有限值和绝对值大于等于 2^53；无法恢复上游已丢失精度。dtype 是源类型标签，不是二进制转换。轨迹要求从 step 0 开始，允许最后 episode 是前缀，同 episode 观测连续性严格相等。ML 只验证本次固定 CPU 算例，未验证 GPU、模型训练质量或算法收益。当前模块名为 `willzhang/json_regress@0.1.2`；内部导入与集成依赖已同步，主模块的 repository 指向公开仓库。
 
-2026-09-15 用户已授权公开发布。GitHub `willzhang/json-regress` 已公开且首次远程 CI 通过；Mooncakes `willzhang/json_regress@0.1.0` 已发布，完整本地与远程验证通过；独立项目从注册表安装成功，根库和三个子包在 Native/Wasm 的消费测试均通过。官方报名需公开仓库与一页说明，不必等待 Mooncakes；个人资料和申报表尚未提交。
+2026-09-15 用户已授权公开发布。GitHub `willzhang/json-regress` 已公开且首次远程 CI 通过；Mooncakes `willzhang/json_regress@0.1.2` 已发布，完整本地与远程验证通过；独立项目从注册表安装成功，根库和三个子包在 Native/Wasm 的消费测试均通过。官方报名需公开仓库与一页说明，不必等待 Mooncakes；个人资料和申报表尚未提交。
 
 2026-09-15：[同类项目评估](../COMPETITIVE_REVIEW-2026-09-15.md) 后，用户确认实施文件报告与模型检查点/比较重放，两项已完成。任务契约见 [M5](tasks/M5-FILE-REPORT-REPLAY.md)。原始核心 API 和默认容差不变；比较重放不执行模型，真实生成器运行独立记录。M4 的工程发布已完成，剩余用户正式申报与后续官方审核/验收，详见 [发布交接](../PUBLICATION.md)；不继续扩建训练或 GPU 范围。
+
+2026-09-15 发行文件整理完成：工具链位置使用未跟踪配置，软件包排除仓库管理文档，发布检查覆盖源码、历史及 ZIP。原有 19 个开发提交均保留，其后为发行与兼容修复；当前数量以脚本为准。0.1.2 在本地 v0.10.12 与远程 v0.10.13 上验证通过。
