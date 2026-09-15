@@ -9,7 +9,7 @@
 //   "moonbitlang/x@0.4.6",
 // }
 
-name = "local/json_regress"
+name = "willzhang/json_regress"
 
 version = "0.1.0"
 

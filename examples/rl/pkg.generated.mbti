@@ -1,5 +1,5 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "local/json_regress/examples/rl"
+package "willzhang/json_regress/examples/rl"
 
 // Values
 pub fn rollout() -> Json

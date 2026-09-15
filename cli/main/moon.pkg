@@ -1,5 +1,5 @@
 import {
-  "local/json_regress/checking",
+  "willzhang/json_regress/checking",
   "moonbitlang/core/json",
   "moonbitlang/core/env",
   "moonbitlang/x/fs",

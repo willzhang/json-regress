@@ -1,4 +1,4 @@
 import {
-  "local/json_regress",
-  "local/json_regress/numeric",
+  "willzhang/json_regress",
+  "willzhang/json_regress/numeric",
 }

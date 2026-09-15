@@ -1,5 +1,5 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "local/json_regress/fixtures"
+package "willzhang/json_regress/fixtures"
 
 // Values
 pub fn linear() -> Json raise

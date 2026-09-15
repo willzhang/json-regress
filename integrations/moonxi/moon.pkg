@@ -2,10 +2,10 @@ import {
   "chnlkw/moonxi-net" @tensor,
   "chnlkw/moonxi-net/model",
   "chnlkw/moonxi-net/nparray",
-  "local/json_regress/numeric",
-  "local/json_regress/fixtures",
+  "willzhang/json_regress/numeric",
+  "willzhang/json_regress/fixtures",
 }
 
 import {
-  "local/json_regress/checking",
+  "willzhang/json_regress/checking",
 } for "test"

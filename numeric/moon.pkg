@@ -1,4 +1,4 @@
 // Pure numeric validation; no external dependencies.
 import {
-  "local/json_regress",
+  "willzhang/json_regress",
 } for "test"

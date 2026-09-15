@@ -1,10 +1,10 @@
 import {
-  "local/json_regress" @core,
-  "local/json_regress/numeric",
-  "local/json_regress/trajectory",
+  "willzhang/json_regress" @core,
+  "willzhang/json_regress/numeric",
+  "willzhang/json_regress/trajectory",
   "moonbitlang/core/json",
 }
 
 import {
-  "local/json_regress/fixtures",
+  "willzhang/json_regress/fixtures",
 } for "test"

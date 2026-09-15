@@ -1,5 +1,5 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "local/json_regress/checking"
+package "willzhang/json_regress/checking"
 
 import {
   "moonbitlang/core/debug",

@@ -90,3 +90,7 @@ RL 只验证记录轨迹和确定性组件契约。环境版本、随机源、�
 ## 2026-09-15：首次 GitHub 公开发布
 
 `CI_VERIFIED`：提交 `3620117dd3f03f95cc0f346d1f547dcab8984dfd` 的[GitHub Actions](https://github.com/willzhang/json-regress/actions/runs/34912598554) conclusion 为 success。仓库 https://github.com/willzhang/json-regress 已公开，默认分支 codex/ml-regression，原开发历史保留。该工作流实际执行完整本地检查入口，不以本地测试替代远程结果。远程日志缓存在 artifacts/github-ci-34912598554.log，不提交。Mooncakes 包发布与官方报名仍未完成；后续状态见 [PUBLICATION](../PUBLICATION.md)。
+
+## 2026-09-15 Mooncakes 正式 namespace
+
+`willzhang/json_regress@0.1.0` 替换主库占位名，内部导入和两个本地模块的依赖同步更新；`moon info` 重新生成接口，未改变比较逻辑。完整 `bash scripts/check-local.sh --integration` 再次通过：Wasm/Native 各 67 项、真实集成各 6 项、19 项 CLI 进程验收、6 个实际输出对照和 7 个注错重放；五组独立参考仍一致。日志在忽略的 `artifacts/mooncakes-prepublish-validation.log`。此处记录发布前本地验证，注册表上传及独立安装结果在 PUBLICATION 中补充。

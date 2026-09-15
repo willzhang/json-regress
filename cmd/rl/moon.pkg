@@ -1,7 +1,7 @@
 import {
-  "local/json_regress/trajectory",
-  "local/json_regress/fixtures",
-  "local/json_regress/examples/rl" @environment,
+  "willzhang/json_regress/trajectory",
+  "willzhang/json_regress/fixtures",
+  "willzhang/json_regress/examples/rl" @environment,
 }
 
 pkgtype(kind: "executable")

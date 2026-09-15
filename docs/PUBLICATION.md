@@ -9,18 +9,13 @@
 - 首次远程验证：[GitHub Actions 34912598554](https://github.com/willzhang/json-regress/actions/runs/34912598554)，conclusion 为 success。该流程调用与本地相同的 `scripts/check-local.sh --integration`。
 - README、许可证、源码、测试、可运行示例及申报参考已公开。Git 历史的凭据特征检查未发现令牌、私钥或非 noreply 邮箱；本地凭据、构建缓存、第三方源码缓存与运行产物没有推送。
 
-## Mooncakes 待办
+## Mooncakes 发布准备
 
-`moon whoami` 当前显示未登录；GitHub CLI 登录不能替代 Mooncakes 登录。主模块仍是 `local/json_regress`，并已填写真实 repository 地址。待确认 Mooncakes 用户名后统一修改模块名、内部导入和独立模块引用，再重新验证并发包。不会将占位 namespace 当成已发布包名。
+2026-09-15，`moon whoami` 已确认 `Logged in as willzhang`。主模块统一为 `willzhang/json_regress@0.1.0`，内部导入和独立模块依赖同步更新。CLI 与 MoonXi 集成继续是源码仓库中的本地模块，不单独发布。
 
-在本机终端运行：
+本轮问题：将本地占位包转为可从注册表安装的正式依赖。基线为已公开且 CI 通过的代码；行为与容差保持不变。输入是已确认的 namespace 与完整 Git 提交；输出是发布包和独立消费验证。先运行现有全量验证，再从提交导出干净目录打包，避免把正在编辑的申报稿带入发布。发布后在仓库外添加 `willzhang/json_regress@0.1.0`，验证根库与 checking/numeric/trajectory 导入，以及应通过和应失败的比较。无需新增训练或付费资源。
 
-```sh
-bash "scripts/moon-local.sh" login
-bash "scripts/moon-local.sh" whoami
-```
-
-没有账号可先使用同一命令的 `register` 子命令。密码、登录验证码、令牌保留在登录流程中；交接只需要已登录的用户名。官方包管理说明：[账号与发布](https://docs.moonbitlang.com/en/latest/toolchain/moon/package-manage-tour.html)。
+当前状态：namespace 已确认；包上传和独立消费仍待执行。官方包管理说明：[账号与发布](https://docs.moonbitlang.com/en/latest/toolchain/moon/package-manage-tour.html)。
 
 ## 报名顺序
 

@@ -1,7 +1,7 @@
 import {
   "local/json_regress_moonxi" @integration,
-  "local/json_regress/numeric",
-  "local/json_regress/fixtures",
+  "willzhang/json_regress/numeric",
+  "willzhang/json_regress/fixtures",
 }
 
 pkgtype(kind: "executable")

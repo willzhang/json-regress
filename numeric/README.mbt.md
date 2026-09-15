@@ -1,6 +1,6 @@
 # Numeric tensor regression
 
-Import `local/json_regress/numeric` as `@numeric`. Shape and dtype are strict;
+Import `willzhang/json_regress/numeric` as `@numeric`. Shape and dtype are strict;
 the flat row-major data uses symmetric absolute-OR-relative tolerance.
 
 ```mbt check
