@@ -2,7 +2,7 @@
 
 面向 MoonBit 的 JSON、数值数组与轨迹回归断言库。对明确路径忽略易变字段，对浮点输出设置容差，严格校验 shape/dtype，并报告具体路径、错误坐标和超差统计。已接入真实 MoonXi-net CPU 层，提供三步未训练动力学检查点和 RL 短轨迹展示；文件命令支持标准 JSON 报告与可携带的失败比较重放。
 
-当前模块名 `local/json_regress` 是本地占位名称，尚未上传 GitHub 或发布到 Mooncakes。核心使用现有 `Json` 类型，无第三方运行时依赖；可选 ML 集成和 Native 文件 CLI 分别在独立模块中。
+源码仓库：[willzhang/json-regress](https://github.com/willzhang/json-regress)。当前模块名 `local/json_regress` 仍是本地占位，Mooncakes 发布等待账号登录。核心使用现有 `Json` 类型，无第三方运行时依赖；可选 ML 集成和 Native 文件 CLI 分别在独立模块中。
 
 ## 快速运行
 
@@ -95,15 +95,15 @@ numeric 默认零容差，保持下文的对称绝对或相对公式。形状和
 
 **已知限制：当前标准解析器会将 `1e-999` 解析为 0 且不保留原文。只接收 Json 的接口无法恢复已经丢失的数值信息；它与 0 比较会相等。**同理，超出 Double 精度的普通小数可能被上游舍入成相同值。不要用于要求原始十进制完全一致的金额核对。需要精确小数时应在输入层保留字符串，或另行设计精确数值接口。
 
-输入应是有限、无环的 JSON 树。本库不重新解析 JSON，不检测被上游解析器覆盖的重复对象键；不做超大文档性能或安全加固承诺。忽略路径会跳过该子树中的数值检查。差异报告保留输入 Json 的引用，应在检查和报告期间避免修改输入。
+输入应是有限、无环的 JSON 树。直接接收 Json 的核心接口不重新解析 JSON，不检测被上游解析器覆盖的重复对象键；不做超大文档性能或安全加固承诺。忽略路径会跳过该子树中的数值检查。差异报告保留输入 Json 的引用，应在检查和报告期间避免修改输入。
 
 ## 当前验证与交付状态
 
 2026-09-15，本机 Wasm、Native 各 67 项测试通过；两个后端各 6 项真实 MoonXi CPU 集成测试通过；另有 19 项 CLI 进程验收、6 个真实输出对照和 7 个注错/比较重放通过。5 组参考与输入文件通过独立 Python 再生成检查。上游 CPU 自身 115 项测试另有较早通过记录，不计入本库测试数量。
 
-`.github/workflows/check.yml` 已复用本地验证脚本，远程 Actions 尚未运行。已配置本仓库署名并形成 10 个实质开发阶段提交，数量检查通过；详见 [开发历史](docs/DEVELOPMENT_HISTORY.md)。发布前仍需确定 Mooncakes namespace 与仓库地址、发布并获得实际 CI 结果；详见 [Git 交接](docs/GIT_HANDOFF.md)。
+`.github/workflows/check.yml` 已复用本地验证脚本，远程 Actions 尚未运行。已配置本仓库署名并形成 10 个实质开发阶段提交，数量检查通过；详见 [开发历史](docs/DEVELOPMENT_HISTORY.md)。GitHub 首次公开发布及远程 CI 正在进行，Mooncakes namespace 待登录核对；详见 [Git 交接](docs/GIT_HANDOFF.md)。
 
-暂无快照文件管理、自动更新快照、JSON Patch、无序数组匹配、CLI 文件对比或性能承诺。简化世界模型与 RL 场景不证明模型质量或算法收益。核心为原创实现，未移植同类库源码；ML 集成直接调用 MIT 许可的 MoonXi-net，源码置于被忽略的 `.external/`。本项目采用 [Apache-2.0](LICENSE)，实现与文档由 AI 辅助生成，需由维护者理解、审阅后再发布。
+暂无快照文件管理、自动更新快照、JSON Patch、无序数组匹配或性能承诺。简化世界模型与 RL 场景不证明模型质量或算法收益。核心为原创实现，未移植同类库源码；ML 集成直接调用 MIT 许可的 MoonXi-net，源码置于被忽略的 `.external/`。本项目采用 [Apache-2.0](LICENSE)，实现与文档由 AI 辅助生成，需由维护者理解、审阅后再发布。
 
 ## 项目协作
 
